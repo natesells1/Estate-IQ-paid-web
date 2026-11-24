@@ -67,25 +67,31 @@ export function toView(p: Property, viewer: Viewer): ViewRecord {
 export interface CountyStat {
   slug: string;
   name: string;
+  lat: number;
+  lng: number;
+  /** New lis pendens filings, last 30 days */
   lisPendens: number;
-  auctionResults: number;
+  /** Foreclosure auctions still scheduled (upcoming) */
+  scheduledAuctions: number;
+  /** Tax deed sales still scheduled (upcoming) */
   taxDeeds: number;
 }
 
-/** Last-30-day counts for the Florida hot-counties map. Counts reveal nothing private, so they are the same for everyone. */
+/** Counts for the hero map's hot counties. Counts reveal nothing private, so they are the same for everyone. */
 export function countyStats(): CountyStat[] {
   const today = floridaToday();
   const monthAgo = addDays(today, -30);
-  const monthAhead = addDays(today, 30);
   const all = rows();
   return COUNTIES.filter((c) => c.hot).map((c) => {
     const mine = all.filter((p) => p.countySlug === c.slug);
     return {
       slug: c.slug,
       name: c.name,
+      lat: c.lat,
+      lng: c.lng,
       lisPendens: mine.filter((p) => p.kind === "lis_pendens" && p.date >= monthAgo).length,
-      auctionResults: mine.filter((p) => p.kind === "foreclosure" && isPublicRecord(p) && p.date >= monthAgo).length,
-      taxDeeds: mine.filter((p) => p.kind === "tax_deed" && p.date >= monthAgo && p.date <= monthAhead).length,
+      scheduledAuctions: mine.filter((p) => p.kind === "foreclosure" && p.status === "scheduled" && p.date >= today).length,
+      taxDeeds: mine.filter((p) => p.kind === "tax_deed" && p.status === "scheduled" && p.date >= today).length,
     };
   });
 }

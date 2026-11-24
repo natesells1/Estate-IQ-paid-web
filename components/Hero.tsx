@@ -9,7 +9,19 @@ const TYPES = [
   { value: "tax_deed", label: "Tax deeds" },
   { value: "lis_pendens", label: "Lis pendens" },
 ];
-const POPULAR = ["Lee County", "Cape Coral", "Lehigh Acres", "Fort Myers", "Miami-Dade"];
+// Popular counties (counties only). Links follow the selected type tab.
+const POPULAR = [
+  { slug: "lee", name: "Lee County" },
+  { slug: "miami-dade", name: "Miami-Dade County" },
+  { slug: "broward", name: "Broward County" },
+  { slug: "duval", name: "Duval County" },
+  { slug: "manatee", name: "Manatee County" },
+  { slug: "polk", name: "Polk County" },
+];
+function popularHref(slug: string, type: string) {
+  if (type === "foreclosure" || type === "tax_deed") return `/auctions?county=${slug}&type=${type}`;
+  return `/lis-pendens/${slug}`;
+}
 
 /** Type tabs, search box and popular links (the only interactive part of the hero). */
 export function HeroSearch() {
@@ -36,7 +48,7 @@ export function HeroSearch() {
         <span className="muted small">Popular:</span>
         <div className="scroll-x">
           {POPULAR.map((p) => (
-            <Link key={p} href={`/search?q=${encodeURIComponent(p)}`} className="pop-link">{p}</Link>
+            <Link key={p.slug} href={popularHref(p.slug, type)} className="pop-link">{p.name}</Link>
           ))}
         </div>
       </div>

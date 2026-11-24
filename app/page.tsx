@@ -1,15 +1,14 @@
 import Link from "next/link";
 import { HeroSearch } from "@/components/Hero";
-import { FloridaMap } from "@/components/FloridaMap";
+import { HeroMap } from "@/components/HeroMap";
 import { LisPendensSection } from "@/components/LisPendensSection";
 import { CountyMap } from "@/components/CountyMap";
 import { AuctionResultsTable } from "@/components/AuctionResultsTable";
 import { AlertsSignup } from "@/components/AlertsSignup";
 import { HomePricing } from "@/components/HomePricing";
-import { HeroSampleCard } from "@/components/Tiles";
 import { Icon } from "@/components/Icon";
 import { FaqSection, FinalCta, HowItWorks, StatsBand } from "@/components/Marketing";
-import { auctionMonth, countyStats, countyMapRecords, filingCounts, newFilingsByCounty, soldResults, topFiling } from "@/lib/data/queries";
+import { auctionMonth, countyStats, countyMapRecords, filingCounts, newFilingsByCounty, soldResults } from "@/lib/data/queries";
 import { floridaToday } from "@/lib/dates";
 import { COUNTIES, COUNTY_BY_SLUG } from "@/lib/data/counties";
 import { getViewer } from "@/lib/viewer";
@@ -35,7 +34,6 @@ export default async function HomePage() {
   const lee = COUNTY_BY_SLUG.lee;
   const leeRecords = countyMapRecords(viewer, "lee");
   const results = soldResults(viewer, "lee", 8);
-  const sample = topFiling(viewer, "lee");
   const alertCounties = COUNTIES.filter((c) => c.hot).map((c) => ({ slug: c.slug, name: c.name }));
   const filingsThisWeek = Object.values(counts).reduce((a, b) => a + b, 0);
   const auctionsThisMonth = auctionMonth(floridaToday().slice(0, 7), null, "all").totals.all;
@@ -64,21 +62,20 @@ export default async function HomePage() {
           <div className="hero-map">
             <div className="mob-only fl-mob-head">
               <h2>Florida · hot counties</h2>
-              <span className="muted small">Last 30 days</span>
+              <span className="muted small">Tap a county</span>
             </div>
             <div className="fl-card">
-              <FloridaMap stats={stats} />
+              <HeroMap stats={stats} />
               <div className="fl-legend-box desk-only">
                 <b>Florida · hot counties</b>
-                <span><span className="dot dot-lp" />Lis pendens filings</span>
-                <span><span className="dot dot-fc" />Auction results</span>
-                <span><span className="dot dot-td" />Tax deeds</span>
+                <span><span className="dot dot-lp" />Lis pendens (last 30 days)</span>
+                <span><span className="dot dot-fc" />Scheduled for auction</span>
+                <span><span className="dot dot-td" />Tax deed sales</span>
               </div>
             </div>
-            {sample && <div className="desk-only"><HeroSampleCard r={sample} /></div>}
             <div className="mob-only fl-legend">
               <span><span className="dot dot-lp" /> Lis pendens</span>
-              <span><span className="dot dot-fc" /> Auction results</span>
+              <span><span className="dot dot-fc" /> Scheduled auctions</span>
               <span><span className="dot dot-td" /> Tax deeds</span>
             </div>
             <ul className="card fl-list mob-only">
@@ -88,7 +85,7 @@ export default async function HomePage() {
                     <b>{s.name}</b>
                     <span className="fl-list-counts">
                       <span className="count-pill count-lp">{s.lisPendens}</span>
-                      <span className="count-pill count-fc">{s.auctionResults}</span>
+                      <span className="count-pill count-fc">{s.scheduledAuctions}</span>
                       <span className="count-pill count-td">{s.taxDeeds}</span>
                     </span>
                   </Link>
