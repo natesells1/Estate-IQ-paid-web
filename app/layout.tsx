@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Newsreader } from "next/font/google";
 import { SiteHeader, TabBar } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DemoBanner } from "@/components/DemoBanner";
@@ -13,7 +13,7 @@ import "./property.css";
 import "./signup.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-space", display: "swap", weight: ["500", "600", "700"] });
+const serif = Newsreader({ subsets: ["latin"], variable: "--font-serif", display: "swap", weight: ["400", "500", "600"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
 // Every page shows the signed-in state in the header, so pages render per visitor
 export const dynamic = "force-dynamic";
 
-export const viewport: Viewport = { themeColor: "#ffffff", colorScheme: "light" };
+export const viewport: Viewport = { themeColor: "#f6f4ee", colorScheme: "light" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const user = await currentUser();
   const account = user ? { firstName: user.name.split(" ")[0], isPro: isProUser(user) } : null;
   return (
-    <html lang="en" className={`${inter.variable} ${space.variable}`}>
+    <html lang="en" className={`${inter.variable} ${serif.variable}`}>
       <body>
         <DemoBanner />
         <SiteHeader account={account} />

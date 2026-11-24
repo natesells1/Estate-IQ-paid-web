@@ -14,10 +14,10 @@
 .lp-county { position: relative; display: flex; align-items: center; gap: 6px; background: #f2f3f1; border: 1px solid var(--border); border-radius: 10px; padding: 0 10px; flex: none; }
 .lp-county select { appearance: none; border: 0; background: none; font-weight: 600; font-size: 14px; padding: 0 16px 0 0; height: 100%; cursor: pointer; outline: none; }
 .lp-county::after { content: "▾"; position: absolute; right: 10px; font-size: 11px; color: var(--muted); pointer-events: none; }
-.lp-arrow { width: 32px; flex: none; border: 1px solid var(--border); background: #fff; border-radius: 10px; font-size: 18px; cursor: pointer; color: var(--ink-2); }
+.lp-arrow { width: 32px; flex: none; border: 1px solid var(--border); background: var(--card); border-radius: 10px; font-size: 18px; cursor: pointer; color: var(--ink-2); }
 .lp-arrow:disabled { opacity: 0.35; cursor: default; }
 .lp-days { flex: 1; gap: 6px; }
-.lp-day { flex: 1 0 84px; min-height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border: 1px solid var(--border); border-radius: 10px; background: #fff; cursor: pointer; padding: 6px 4px; }
+.lp-day { flex: 1 0 84px; min-height: 60px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; border: 1px solid var(--border); border-radius: 10px; background: var(--card); cursor: pointer; padding: 6px 4px; }
 .lp-day:hover:not(:disabled) { border-color: var(--border-strong); }
 .lp-day b { font-size: 14px; }
 .lp-day-wd { font-size: 10.5px; font-weight: 600; letter-spacing: 0.05em; color: var(--muted); }
@@ -32,7 +32,7 @@
 .lp-split > * { min-width: 0; min-height: 0; }
 .day-map { position: relative; height: 100%; border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--border); }
 .day-map-canvas { width: 100%; height: 100%; z-index: 0; background: #eef0ec; }
-.day-map-legend { position: absolute; left: 12px; bottom: 12px; z-index: 500; display: flex; gap: 12px; background: #fff; border-radius: 999px; padding: 6px 12px; font-size: 12.5px; box-shadow: var(--shadow-lg); }
+.day-map-legend { position: absolute; left: 12px; bottom: 12px; z-index: 500; display: flex; gap: 12px; background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 12.5px; box-shadow: var(--shadow-lg); }
 .day-map-legend > span { display: inline-flex; align-items: center; gap: 6px; }
 .lp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--lp); display: inline-block; }
 .lp-dot-sel { background: var(--lp-deep); box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--lp-deep); }
@@ -42,7 +42,7 @@
 .lp-list-col { display: flex; flex-direction: column; overflow: hidden; }
 .lp-list-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px 10px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; }
 .lp-sort { display: inline-flex; align-items: center; gap: 8px; }
-.lp-sort select { height: 34px; border: 1px solid var(--border-strong); border-radius: 8px; padding: 0 8px; background: #fff; font-size: 13px; font-weight: 600; }
+.lp-sort select { height: 34px; border: 1px solid var(--border-strong); border-radius: 8px; padding: 0 8px; background: var(--card); font-size: 13px; font-weight: 600; }
 .lp-list { flex: 1; overflow-y: auto; padding: 10px; display: grid; gap: 10px; align-content: start; }
 .lp-empty { padding: 20px 8px; }
 
@@ -70,7 +70,7 @@
   .lp-day { flex: 0 0 92px; min-height: 64px; }
   .lp-switch { display: grid !important; grid-template-columns: 1fr 1fr; background: #eceeea; border-radius: 10px; padding: 3px; margin-bottom: 12px; }
   .lp-switch button { height: 40px; border: 0; border-radius: 8px; background: none; font-weight: 600; cursor: pointer; }
-  .lp-switch button[aria-selected="true"] { background: #fff; box-shadow: var(--shadow); }
+  .lp-switch button[aria-selected="true"] { background: var(--card); box-shadow: var(--shadow); }
   .lp-split { display: block; height: auto; }
   .lp-split.view-list .lp-map-col { display: none; }
   .lp-split.view-map .lp-list-col { display: none; }

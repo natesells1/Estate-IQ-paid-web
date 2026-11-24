@@ -1,5 +1,5 @@
 /* ───────────── Auction calendar ───────────── */
-.ac-county { position: relative; display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: #fff; flex: none; }
+.ac-county { position: relative; display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 12px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--card); flex: none; }
 .ac-county select { appearance: none; border: 0; background: none; font-size: 13.5px; font-weight: 500; padding-right: 22px; height: 100%; cursor: pointer; outline: none; }
 .ac-county::after { content: "▾"; position: absolute; right: 12px; font-size: 11px; color: var(--muted); pointer-events: none; }
 
@@ -15,7 +15,7 @@
 .ac-cal { overflow: hidden; }
 .ac-cal-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; }
 .ac-cal-head h2 { font-size: 20px; }
-.ac-nav { width: 34px; height: 34px; border: 1px solid var(--border-strong); border-radius: 8px; display: grid; place-items: center; font-size: 18px; color: var(--ink-2); background: #fff; }
+.ac-nav { width: 34px; height: 34px; border: 1px solid var(--border-strong); border-radius: 8px; display: grid; place-items: center; font-size: 18px; color: var(--ink-2); background: var(--card); }
 .ac-nav:hover { background: #f4f5f3; }
 .ac-grid { display: grid; grid-template-columns: repeat(7, 1fr); border-top: 1px solid var(--border); }
 .ac-wd { background: #f8f8f6; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); padding: 7px 8px; border-bottom: 1px solid var(--border); }
@@ -43,12 +43,12 @@ a.ac-cell:hover { background: #f8faf8; }
 .ac-panel-list > * { flex: none; }
 .ac-empty { padding: 16px 6px; }
 
-.ac-card { border: 1px solid var(--border); border-radius: 12px; background: #fff; overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+.ac-card { border: 1px solid var(--border); border-radius: 12px; background: var(--card); overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
 .ac-card.is-sel { border-color: var(--fc); box-shadow: 0 0 0 1px var(--fc), 0 6px 18px rgba(30, 58, 138, 0.1); }
 .ac-card-top { display: flex; gap: 12px; padding: 12px 12px 8px; }
 .ac-card-photo { width: 80px; height: 56px; border-radius: 8px; object-fit: cover; flex: none; background: #e9ece8; }
 .ac-card-id { flex: 1; min-width: 0; }
-.ac-card-title { font-family: var(--font-head); font-weight: 700; font-size: 15px; display: block; }
+.ac-card-title { font-family: var(--font-num); font-weight: 700; font-size: 15px; display: block; }
 a.ac-card-title:hover { color: var(--green); }
 .ac-tag-sold_third_party, .ac-tag-back_to_plaintiff { background: var(--green-soft); color: var(--green); }
 .ac-tag-canceled { background: #fbeaea; color: var(--canceled); }
@@ -92,7 +92,7 @@ a.ac-card-title:hover { color: var(--green); }
 .ac-mob-status { padding: 0 12px 12px; }
 .ac-mob-group { padding: 0 12px 12px; display: grid; gap: 10px; }
 .ac-mob-gh { display: flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 16px; padding-top: 4px; }
-.ac-mcard { border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: grid; gap: 10px; background: #fff; }
+.ac-mcard { border: 1px solid var(--border); border-radius: 12px; padding: 12px; display: grid; gap: 10px; background: var(--card); }
 .ac-mcard.is-sel { border-color: var(--fc); box-shadow: 0 0 0 1px var(--fc); }
 .ac-mcard-top { display: flex; gap: 10px; align-items: center; }
 .ac-mcard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 10px; font-size: 13px; }

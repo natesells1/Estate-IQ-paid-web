@@ -44,7 +44,7 @@ export function HowItWorks() {
         <ol className="how-grid">
           {STEPS.map((s, i) => (
             <li key={s.title} className="how-step">
-              <span className="how-num">{i + 1}</span>
+              <span className="how-num">{String(i + 1).padStart(2, "0")}</span>
               <span className="feature-icon tone-soft-green"><Icon name={s.icon} size={20} /></span>
               <h3>{s.title}</h3>
               <p>{s.text}</p>
