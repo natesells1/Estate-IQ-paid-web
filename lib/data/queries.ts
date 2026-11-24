@@ -218,6 +218,89 @@ export function searchCountyFilings(viewer: Viewer, countySlug: string, q: strin
     .map((p) => p.id);
 }
 
+/* ───────────── Auction calendar ───────────── */
+
+export type AuctionType = "all" | "foreclosure" | "tax_deed";
+
+export interface MonthDay {
+  fc: number;
+  td: number;
+}
+export interface MonthTotals {
+  all: number;
+  foreclosure: number;
+  taxDeed: number;
+  soldThirdParty: number;
+  backToPlaintiff: number;
+  canceled: number;
+  rescheduled: number;
+  scheduled: number;
+}
+
+function auctionRows(county: string | null, type: AuctionType) {
+  return rows().filter(
+    (p) => p.kind !== "lis_pendens" && (!county || p.countySlug === county) && (type === "all" || p.kind === type),
+  );
+}
+
+/** Per-day counts and status totals for one month (yyyy-mm). Counts are public. */
+export function auctionMonth(month: string, county: string | null, type: AuctionType): { days: Record<string, MonthDay>; totals: MonthTotals } {
+  const days: Record<string, MonthDay> = {};
+  const totals: MonthTotals = { all: 0, foreclosure: 0, taxDeed: 0, soldThirdParty: 0, backToPlaintiff: 0, canceled: 0, rescheduled: 0, scheduled: 0 };
+  // Type chip counts ignore the type filter so both chips always show their totals
+  for (const p of auctionRows(county, "all")) {
+    if (!p.date.startsWith(month)) continue;
+    if (p.kind === "foreclosure") totals.foreclosure++;
+    else totals.taxDeed++;
+    if (type !== "all" && p.kind !== type) continue;
+    totals.all++;
+    const d = (days[p.date] ??= { fc: 0, td: 0 });
+    if (p.kind === "foreclosure") d.fc++;
+    else d.td++;
+    if (p.status === "sold_third_party") totals.soldThirdParty++;
+    else if (p.status === "back_to_plaintiff") totals.backToPlaintiff++;
+    else if (p.status === "canceled") totals.canceled++;
+    else if (p.status === "rescheduled") totals.rescheduled++;
+    else totals.scheduled++;
+  }
+  if (type === "all") totals.all = totals.foreclosure + totals.taxDeed;
+  return { days, totals };
+}
+
+/** One day's auctions, grouped-ready (sorted by county, then case #). */
+export function auctionDay(viewer: Viewer, date: string, county: string | null, type: AuctionType): ViewRecord[] {
+  return auctionRows(county, type)
+    .filter((p) => p.date === date)
+    .sort((a, b) => a.countySlug.localeCompare(b.countySlug) || a.caseNumber.localeCompare(b.caseNumber))
+    .map((p) => toView(p, viewer));
+}
+
+/** Most recent day (before today) that has auction results, for the default view. */
+export function latestResultDay(county: string | null, type: AuctionType): string {
+  const today = floridaToday();
+  let best = "";
+  for (const p of auctionRows(county, type)) if (p.date < today && p.date > best) best = p.date;
+  return best || today;
+}
+
+/**
+ * Auction search. Finished sales (public) match on address, city, ZIP, case #, parcel or plaintiff.
+ * Upcoming (locked) auctions match on case # only.
+ */
+export function searchAuctions(viewer: Viewer, q: string, county: string | null, type: AuctionType, limit = 60): ViewRecord[] {
+  const needle = q.trim().toLowerCase();
+  if (!needle) return [];
+  return auctionRows(county, type)
+    .filter((p) => {
+      if (p.caseNumber.toLowerCase().includes(needle)) return true;
+      if (!(viewer.isPro || isPublicRecord(p))) return false;
+      return [p.address, p.city, p.zip, p.parcelId, p.plaintiff].some((f) => f.toLowerCase().includes(needle));
+    })
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.countySlug.localeCompare(b.countySlug)))
+    .slice(0, limit)
+    .map((p) => toView(p, viewer));
+}
+
 export function findById(id: string): Property | undefined {
   return rows().find((p) => p.id === id);
 }
