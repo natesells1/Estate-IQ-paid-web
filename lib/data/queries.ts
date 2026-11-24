@@ -139,6 +139,34 @@ export function searchRecords(viewer: Viewer, q: string, kind?: Kind, limit = 40
     .map((p) => toView(p, viewer));
 }
 
+/** New lis pendens filings per county over the last `days` days. */
+export function filingCounts(days = 7): Record<string, number> {
+  const from = addDays(floridaToday(), -days);
+  const out: Record<string, number> = {};
+  for (const p of rows()) {
+    if (p.kind === "lis_pendens" && p.date > from) out[p.countySlug] = (out[p.countySlug] ?? 0) + 1;
+  }
+  return out;
+}
+
+/** Finished sales (sold to a third party or back to plaintiff) for one county, newest first. */
+export function soldResults(viewer: Viewer, countySlug: string, limit = 8): FullRecord[] {
+  return rows()
+    .filter((p) => p.countySlug === countySlug && (p.status === "sold_third_party" || p.status === "back_to_plaintiff"))
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
+    .slice(0, limit)
+    .map((p) => toView(p, viewer) as FullRecord);
+}
+
+/** The highest-equity new filing in a county, for the hero sample card. */
+export function topFiling(viewer: Viewer, countySlug: string): ViewRecord | undefined {
+  const from = addDays(floridaToday(), -7);
+  const best = rows()
+    .filter((p) => p.kind === "lis_pendens" && p.countySlug === countySlug && p.date > from)
+    .sort((a, b) => equityScore(b) - equityScore(a) || (a.date < b.date ? 1 : -1))[0];
+  return best && toView(best, viewer);
+}
+
 export function findById(id: string): Property | undefined {
   return rows().find((p) => p.id === id);
 }

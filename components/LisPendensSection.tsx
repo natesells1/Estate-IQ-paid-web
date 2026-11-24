@@ -2,11 +2,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { ViewRecord } from "@/lib/types";
-import { RecordCard } from "./RecordBits";
+import { LpTile } from "./Tiles";
 import { Icon } from "./Icon";
 
 type Props = {
-  counties: { slug: string; name: string }[];
+  counties: { slug: string; name: string; count: number }[];
   filings: Record<string, ViewRecord[]>;
   initial: string;
 };
@@ -22,58 +22,49 @@ export function LisPendensSection({ counties, filings, initial }: Props) {
   const cards = filings[county] ?? [];
 
   return (
-    <section className="section" id="lis-pendens">
+    <section className="section band-white" id="lis-pendens">
       <div className="wrap">
         <div className="section-head">
           <div>
-            <div className="eyebrow" style={{ color: "var(--lp-deep)" }}>New every weekday</div>
+            <div className="eyebrow">Pre-foreclosure leads · {current.name} County</div>
             <h2>Track the new Lis Pendens filings</h2>
             <p>Find, contact and negotiate a deal before the auction.</p>
           </div>
-          <Link href={`/lis-pendens?county=${county}`} className="btn btn-ghost desk-only">
-            All {current.name} filings <Icon name="arrow" size={16} />
-          </Link>
+          <Link href={`/lis-pendens?county=${county}`} className="text-link desk-only">All {current.name} County filings →</Link>
         </div>
 
-        <div className="lp-controls">
-          <label className="search-field lp-search">
-            <span className="sr-only">Find a county</span>
-            <Icon name="pin" />
-            <input
-              className="input"
-              placeholder="Search a county"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && shown[0]) {
-                  setCounty(shown[0].slug);
-                  setQ("");
-                }
-              }}
-            />
-          </label>
-          <div className="scroll-x" role="group" aria-label="County">
-            {shown.map((c) => (
-              <button key={c.slug} type="button" className="pill" aria-pressed={c.slug === county} onClick={() => setCounty(c.slug)}>
-                {c.name}
-              </button>
-            ))}
-            {shown.length === 0 && <span className="muted small" style={{ alignSelf: "center" }}>No hot county matches “{q}”.</span>}
-          </div>
-        </div>
-
-        <div className="card-grid">
-          {cards.map((r) => (
-            <RecordCard
-              key={r.id}
-              r={r}
-              href={r.locked ? undefined : `/lis-pendens?county=${r.countySlug}&date=${r.date}&id=${r.id}`}
-            />
+        <label className="search-field lp-search">
+          <span className="sr-only">Search counties</span>
+          <Icon name="search" size={16} />
+          <input
+            className="input"
+            placeholder="Search counties"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && shown[0]) {
+                setCounty(shown[0].slug);
+                setQ("");
+              }
+            }}
+          />
+        </label>
+        <div className="scroll-x lp-pills" role="group" aria-label="County">
+          {shown.map((c) => (
+            <button key={c.slug} type="button" className="pill pill-sm" aria-pressed={c.slug === county} onClick={() => setCounty(c.slug)}>
+              {c.name} <span className="count">{c.count}</span>
+            </button>
           ))}
+          {shown.length === 0 && <span className="muted small" style={{ alignSelf: "center" }}>No county matches “{q}”.</span>}
         </div>
-        <Link href={`/lis-pendens?county=${county}`} className="btn btn-ghost mob-only" style={{ width: "100%", marginTop: 16 }}>
-          All {current.name} filings <Icon name="arrow" size={16} />
-        </Link>
+
+        <div className="tile-grid">
+          {cards.map((r) => (
+            <LpTile key={r.id} r={r} href={r.locked ? undefined : `/lis-pendens?county=${r.countySlug}&date=${r.date}&id=${r.id}`} />
+          ))}
+          {cards.length === 0 && <p className="muted">No new filings in {current.name} County this week.</p>}
+        </div>
+        <Link href={`/lis-pendens?county=${county}`} className="text-link mob-only" style={{ marginTop: 16 }}>All {current.name} County filings →</Link>
       </div>
     </section>
   );

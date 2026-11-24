@@ -16,54 +16,52 @@ const OUTLINE: [number, number][] = [
 const px = (lng: number) => (lng + 87.7) * 88;
 const py = (lat: number) => (31.1 - lat) * 100;
 const PATH = "M" + OUTLINE.map(([lng, lat]) => `${px(lng).toFixed(1)},${py(lat).toFixed(1)}`).join("L") + "Z";
-// Lake Okeechobee
 const LAKE = { cx: px(-80.83), cy: py(26.95), rx: 22, ry: 18 };
 
-const LABEL_W = 184;
-const LABEL_H = 56;
-const LEFT_X = 190;
-const RIGHT_X = 700;
+// Hand-placed bubble rows (x of the first bubble, y) and label side, so nothing overlaps.
+const PLACE: Record<string, { x: number; y: number; label: "left" | "right" }> = {
+  duval: { x: 560, y: 80, label: "right" },
+  polk: { x: 528, y: 300, label: "right" },
+  manatee: { x: 486, y: 360, label: "right" },
+  lee: { x: 520, y: 438, label: "right" },
+  broward: { x: 632, y: 486, label: "right" },
+  "miami-dade": { x: 624, y: 548, label: "right" },
+};
+const R = 19;
+const GAP = 42;
+const COLORS = ["#8B5CF6", "#1E3A8A", "#EA7317"];
 
 export function FloridaMap({ stats }: { stats: CountyStat[] }) {
   return (
     <div className="fl-map">
-      {/* Desktop: name + three counts in callouts outside the coastline */}
-      <svg className="fl-desk" viewBox="170 30 730 590" role="img" aria-label="Map of Florida hot counties with new lis pendens, auction results and tax deed counts">
-        <rect width="900" height="620" fill="var(--water)" />
+      {/* Desktop: three count bubbles per county */}
+      <svg className="fl-desk" viewBox="220 30 665 545" role="img" aria-label="Florida hot counties: new lis pendens filings, auction results and tax deeds in the last 30 days">
+        <rect x="0" y="0" width="900" height="640" fill="var(--water)" />
         <path d={PATH} fill="var(--land)" stroke="#e2dccd" strokeWidth="2" strokeLinejoin="round" />
         <ellipse {...LAKE} fill="var(--water)" />
         {stats.map((s) => {
-          const c = COUNTY_BY_SLUG[s.slug];
-          const dx = px(c.lng), dy = py(c.lat);
-          const left = c.labelSide === "left";
-          const lx = left ? LEFT_X : RIGHT_X;
-          const ly = c.labelY;
-          const anchorX = left ? lx + LABEL_W : lx;
-          const counts = [
-            { n: s.lisPendens, fill: "var(--lp-soft)", ink: "var(--lp-deep)" },
-            { n: s.auctionResults, fill: "var(--fc-soft)", ink: "var(--fc)" },
-            { n: s.taxDeeds, fill: "var(--td-soft)", ink: "#b4540a" },
-          ];
+          const at = PLACE[s.slug];
+          if (!at) return null;
+          const counts = [s.lisPendens, s.auctionResults, s.taxDeeds];
+          const label = COUNTY_BY_SLUG[s.slug].name.toUpperCase();
+          const lw = label.length * 9.5 + 18;
+          const lx = at.label === "right" ? at.x + GAP * 2 + R + 10 : at.x - R - 10 - lw;
           return (
-            <Link key={s.slug} href={`/lis-pendens?county=${s.slug}`} className="fl-county">
-              <line x1={anchorX} y1={ly + LABEL_H / 2} x2={dx} y2={dy} stroke="var(--ink)" strokeOpacity="0.35" strokeWidth="1.5" />
-              <circle cx={dx} cy={dy} r="9" fill="var(--ink)" stroke="#fff" strokeWidth="3" />
-              <g transform={`translate(${lx} ${ly})`}>
-                <rect width={LABEL_W} height={LABEL_H} rx="10" fill="#fff" stroke="var(--border)" />
-                <text x="12" y="21" className="fl-name">{s.name}</text>
-                {counts.map((k, i) => (
-                  <g key={i} transform={`translate(${12 + i * 56} 29)`}>
-                    <rect width="50" height="20" rx="5" fill={k.fill} />
-                    <text x="25" y="14.5" textAnchor="middle" className="fl-count" fill={k.ink}>{k.n}</text>
-                  </g>
-                ))}
-              </g>
+            <Link key={s.slug} href={`/lis-pendens?county=${s.slug}`} className="fl-county" aria-label={`${label}: ${counts[0]} lis pendens, ${counts[1]} auction results, ${counts[2]} tax deeds`}>
+              {counts.map((n, i) => (
+                <g key={i}>
+                  <circle cx={at.x + i * GAP} cy={at.y} r={R} fill={COLORS[i]} stroke="#fff" strokeWidth="3" />
+                  <text x={at.x + i * GAP} y={at.y + 4.5} textAnchor="middle" className="fl-bubble">{n}</text>
+                </g>
+              ))}
+              <rect x={lx} y={at.y - 13} width={lw} height="26" rx="5" fill="#fff" fillOpacity="0.92" />
+              <text x={lx + lw / 2} y={at.y + 4.5} textAnchor="middle" className="fl-label">{label}</text>
             </Link>
           );
         })}
       </svg>
 
-      {/* Mobile: dots with a compact name chip; full counts are in the list below */}
+      {/* Mobile: one dot per county with a name chip; counts are in the list below */}
       <svg className="fl-mob" viewBox="190 20 540 580" role="img" aria-label="Map of Florida hot counties">
         <rect x="0" y="0" width="900" height="620" fill="var(--water)" />
         <path d={PATH} fill="var(--land)" stroke="#e2dccd" strokeWidth="2" strokeLinejoin="round" />

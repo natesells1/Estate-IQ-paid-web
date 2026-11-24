@@ -6,7 +6,7 @@ import { Icon, LogoMark } from "./Icon";
 
 export const NAV = [
   { href: "/#property-map", label: "Property map", match: "" },
-  { href: "/auctions", label: "Auction calendar", match: "/auctions" },
+  { href: "/auctions", label: "Auctions", match: "/auctions" },
   { href: "/lis-pendens", label: "Lis pendens", match: "/lis-pendens" },
   { href: "/signup#plans", label: "Pricing", match: "/signup" },
   { href: "/#about", label: "About us", match: "" },

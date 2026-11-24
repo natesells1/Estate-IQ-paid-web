@@ -12,6 +12,8 @@ const PATHS: Record<string, string> = {
   arrow: "M5 12h14M13 6l6 6-6 6",
   bell: "M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0",
   chart: "M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-7",
+  gavel: "m14 5 5 5M11 8l5 5M12.5 6.5l5 5-3 3-5-5zM9.5 12.5 4 18l2 2 5.5-5.5M4 21h9",
+  clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 4v5l3 2",
   map: "M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Zm0 0v14m6-12v14",
 };
 
