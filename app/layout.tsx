@@ -7,6 +7,7 @@ import "./globals.css";
 import "./home.css";
 import "./lis-pendens.css";
 import "./auctions.css";
+import "./property.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const space = Space_Grotesk({ subsets: ["latin"], variable: "--font-space", display: "swap", weight: ["500", "600", "700"] });

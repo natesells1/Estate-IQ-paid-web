@@ -38,6 +38,11 @@ function toFull(p: Property, score: number, isPro: boolean): FullRecord {
   const { compliant, ...rest } = p;
   return {
     ...rest,
+    // Owner names and phone are Pro-only, even on public auction history
+    owner: isPro ? p.owner : "",
+    ownerPhone: isPro ? p.ownerPhone : "",
+    details: { ...p.details, coOwner: isPro ? p.details.coOwner : "" },
+    contactsLocked: !isPro,
     locked: false,
     countyName: COUNTY_BY_SLUG[p.countySlug]?.name ?? p.countySlug,
     equityScore: isPro || score >= FREE_SCORE_FLOOR ? score : null,

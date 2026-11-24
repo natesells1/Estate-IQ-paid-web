@@ -24,6 +24,23 @@ export interface County {
   cities: { name: string; zip: string; lat: number; lng: number }[];
 }
 
+/** Extra property-appraiser and court details shown on the property card. */
+export interface PropertyDetails {
+  totalBuildingSqft: number;
+  garage: string;
+  pool: boolean;
+  carport: boolean;
+  seawall: boolean;
+  boatDock: boolean;
+  taxesOwed: number;
+  assessedValue: number;
+  filingType: string;
+  secondMortgage: number;
+  hoaLien: number;
+  /** Second defendant on the case, if any */
+  coOwner: string;
+}
+
 export interface Property {
   id: string;
   kind: Kind;
@@ -63,6 +80,8 @@ export interface Property {
   soldTo?: string;
   soldAmount?: number;
 
+  details: PropertyDetails;
+
   /** Only compliant (complete) files are ever shown. */
   compliant: boolean;
 }
@@ -90,6 +109,8 @@ export interface FullRecord extends Omit<Property, "compliant"> {
   countyName: string;
   /** null for free users when the score is under 70 */
   equityScore: number | null;
+  /** Owner names and phone are Pro-only; when true they are blank strings */
+  contactsLocked: boolean;
 }
 
 export type ViewRecord = TeaserRecord | FullRecord;

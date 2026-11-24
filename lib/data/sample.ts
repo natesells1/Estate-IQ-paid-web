@@ -90,8 +90,31 @@ function baseProperty(id: string, kind: Kind, countySlug: string, date: string, 
     lastSaleDate: `${lastSaleYear}-${String(1 + Math.floor(r() * 12)).padStart(2, "0")}-${String(1 + Math.floor(r() * 28)).padStart(2, "0")}`,
     plaintiff: kind === "tax_deed" ? `${county.name} County Tax Collector` : pick(r, LENDERS),
     date,
+    details: sampleDetails(id, kind, type, sqft, fmv, county.slug),
     // ~7% of files are incomplete and must never show
     compliant: r() > 0.07,
+  };
+}
+
+const WATER_COUNTIES = new Set(["lee", "collier", "charlotte", "sarasota", "manatee", "pinellas", "brevard", "palm-beach", "broward", "miami-dade"]);
+
+function sampleDetails(id: string, kind: Kind, type: string, sqft: number, fmv: number, countySlug: string) {
+  const r = rng(id + "d");
+  const waterfront = WATER_COUNTIES.has(countySlug) && r() > 0.7;
+  const condo = type === "Condo";
+  return {
+    totalBuildingSqft: round(sqft * between(r, 1.15, 1.35), 10),
+    garage: condo ? "None" : pick(r, ["1-car attached", "2-car attached", "2-car attached", "None", "Carport only"]),
+    pool: !condo && r() > 0.55,
+    carport: r() > 0.85,
+    seawall: waterfront,
+    boatDock: waterfront && r() > 0.4,
+    taxesOwed: kind === "tax_deed" ? round(between(r, 2500, 18000), 10) : r() > 0.8 ? round(between(r, 800, 6000), 10) : 0,
+    assessedValue: round(fmv * between(r, 0.78, 0.92), 100),
+    filingType: kind === "tax_deed" ? "Tax deed application" : pick(r, ["Mortgage foreclosure", "Mortgage foreclosure", "Mortgage foreclosure", "HOA lien foreclosure"]),
+    secondMortgage: r() > 0.8 ? round(between(r, 15000, 60000), 1000) : 0,
+    hoaLien: condo || r() > 0.85 ? round(between(r, 1500, 9000), 100) : 0,
+    coOwner: r() > 0.5 ? `${pick(r, FIRST)} ${pick(r, LAST)}` : "",
   };
 }
 

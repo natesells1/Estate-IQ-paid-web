@@ -112,7 +112,7 @@ function FullRecordCard({ r, href, highlight }: { r: FullRecord; href?: string; 
         <div><div className="rec-label">Case #</div><b>{r.caseNumber}</b></div>
       </div>
       <div className="rec-foot">
-        <span className="muted small">{r.owner} · {r.plaintiff}</span>
+        <span className="muted small">{r.owner ? `${r.owner} · ` : ""}{r.plaintiff}</span>
         <span className="btn btn-primary btn-pill">Property card</span>
       </div>
     </Link>

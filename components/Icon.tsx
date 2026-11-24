@@ -16,6 +16,10 @@ const PATHS: Record<string, string> = {
   clock: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 4v5l3 2",
   filter: "M4 6h16M7 12h10M10 18h4",
   play: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm-2 5.5v7l6-3.5z",
+  bed: "M3 18V7M3 13h18v5M21 18v-3a3 3 0 0 0-3-3h-7v1M7 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z",
+  bath: "M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3ZM6 12V6a2 2 0 0 1 4 0M7 19l-1 2M17 19l1 2",
+  ruler: "M4 4h16v16H4zM4 9h5M4 14h3M9 4v5M14 4v3",
+  lot: "M12 3 3 20h18L12 3Zm0 6v5",
   map: "M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Zm0 0v14m6-12v14",
 };
 
