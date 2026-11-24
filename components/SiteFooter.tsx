@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { COUNTIES } from "@/lib/data/counties";
 import { LogoMark } from "./Icon";
+import { SocialIcons } from "./SocialIcons";
 
 export function SiteFooter() {
   const hot = COUNTIES.filter((c) => c.hot);
@@ -13,6 +14,7 @@ export function SiteFooter() {
             <p className="muted small" style={{ marginTop: 12, maxWidth: 320 }}>
               New lis pendens filings, foreclosure auctions and tax deed sales across Florida, with an Equity Score on every property.
             </p>
+            <SocialIcons />
           </div>
           <div>
             <h2 className="footer-h">Product</h2>

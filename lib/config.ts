@@ -12,3 +12,12 @@ export const TRIAL_LABEL = `${TRIAL_DAYS}-day`;
 export function money(cents: number) {
   return `$${(cents / 100).toFixed(cents % 100 ? 2 : 0)}`;
 }
+
+/** Social profiles shown as icons in the footer. Add each profile URL to make its icon a link. */
+export const SOCIALS: { network: "facebook" | "instagram" | "x" | "youtube" | "tiktok"; label: string; url: string }[] = [
+  { network: "facebook", label: "Facebook", url: "" },
+  { network: "instagram", label: "Instagram", url: "" },
+  { network: "x", label: "X", url: "" },
+  { network: "youtube", label: "YouTube", url: "" },
+  { network: "tiktok", label: "TikTok", url: "" },
+];
