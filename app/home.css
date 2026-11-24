@@ -180,7 +180,7 @@ section[id] { scroll-margin-top: 72px; }
 .pin-tax_deed { background: var(--td); }
 .pin-lis_pendens { background: var(--lp); }
 .cluster { display: grid; place-items: center; border-radius: 50%; color: #fff; font-weight: 700; font-size: 13px; font-family: var(--font-body); border: 2.5px solid #fff; }
-.cluster-fc { background: var(--fc); box-shadow: 0 0 0 6px rgba(30, 58, 138, 0.22); }
+.cluster-fc { background: var(--fc); box-shadow: 0 0 0 5px rgba(30, 58, 138, 0.22); }
 .cluster-td { background: var(--td); box-shadow: 0 0 0 6px rgba(234, 115, 23, 0.25); }
 .cluster-lp { background: var(--lp); box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.25); }
 
@@ -357,16 +357,15 @@ section[id] { scroll-margin-top: 72px; }
 .hm-canvas { width: 100%; height: 470px; z-index: 0; background: #dfe9ee; }
 .fl-legend-box { z-index: 500; }
 .hm-marker { position: relative; overflow: visible; }
-.hm-dot { position: absolute; inset: 0; border-radius: 50%; background: var(--ink); border: 2.5px solid #fff; box-shadow: 0 1px 4px rgba(15, 27, 45, 0.35); }
-.hm-group { position: absolute; left: 22px; top: -8px; display: flex; gap: 6px; white-space: nowrap; pointer-events: none; }
-.hm-btn { pointer-events: auto; display: grid; place-items: center; min-width: 44px; height: 44px; padding: 0 8px; border-radius: 999px; border: 2.5px solid #fff; color: #fff; font: 700 15px var(--font-body); box-shadow: 0 3px 10px rgba(15, 27, 45, 0.3); transition: transform 0.12s; }
-.hm-btn:hover, .hm-btn:focus-visible { transform: scale(1.1); }
-.hm-lp { background: var(--lp-deep); }
-.hm-fc { background: var(--fc); }
-.hm-td { background: #b9580c; }
+.hm-group { position: absolute; left: 0; top: 0; pointer-events: none; }
+/* Same look as the property map clusters: solid circle, white ring, soft halo */
+.hm-btn { position: absolute; pointer-events: auto; display: grid; place-items: center; border-radius: 50%; border: 2.5px solid #fff; color: #fff; font: 700 13px var(--font-body); transition: transform 0.12s; }
+.leaflet-container a.hm-btn { color: #fff; text-decoration: none; }
+.hm-btn:hover, .hm-btn:focus-visible { transform: scale(1.1); z-index: 2; }
+.hm-lp { background: var(--lp-deep); box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.28); }
+.hm-fc { background: var(--fc); box-shadow: 0 0 0 5px rgba(30, 58, 138, 0.22); }
+.hm-td { background: #b9580c; box-shadow: 0 0 0 5px rgba(234, 115, 23, 0.28); }
 @media (max-width: 860px) {
   .hm-canvas { height: 460px; }
-  .hm-group { gap: 3px; }
-  .hm-btn { min-width: 44px; height: 44px; padding: 0 6px; font-size: 13px; border-width: 2px; }
 }
 
