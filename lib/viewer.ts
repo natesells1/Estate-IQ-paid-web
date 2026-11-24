@@ -1,13 +1,9 @@
 import "server-only";
-import { cookies } from "next/headers";
+import { currentUser, isProUser } from "./auth";
 import type { Viewer } from "./types";
 
-/**
- * Who is looking. Until real accounts exist everyone is Free.
- * For local testing, set ALLOW_DEMO_PRO=1 and visit /api/demo-plan?plan=pro.
- */
+/** Who is looking: Pro means an active or trialing Stripe subscription. */
 export async function getViewer(): Promise<Viewer> {
-  if (process.env.ALLOW_DEMO_PRO !== "1") return { isPro: false };
-  const jar = await cookies();
-  return { isPro: jar.get("eiq_plan")?.value === "pro" };
+  const user = await currentUser();
+  return { isPro: isProUser(user), signedIn: !!user };
 }

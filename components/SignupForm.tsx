@@ -1,30 +1,23 @@
 "use client";
 import Link from "next/link";
 import { useActionState, useState } from "react";
-import { startTrial, type SignupState } from "@/app/actions";
-import { Icon } from "./Icon";
+import { signUp, type SignupState } from "@/app/actions";
+import { PRO_PRICE_LABEL, TRIAL_DAYS } from "@/lib/config";
 
-export function SignupForm({ plan }: { plan: "free" | "pro" }) {
-  const [state, action, pending] = useActionState<SignupState, FormData>(startTrial, { ok: false, message: "" });
+export function SignupForm({ plan, next }: { plan: "free" | "pro"; next: string }) {
+  const [state, action, pending] = useActionState<SignupState, FormData>(signUp, { ok: false, message: "" });
   const [show, setShow] = useState(false);
   const f = state.fields ?? {};
-
-  if (state.ok) {
-    return (
-      <div className="su-card su-done" role="status">
-        <span className="su-done-icon"><Icon name="check" size={22} stroke={2.4} /></span>
-        <h2>You&apos;re on the list</h2>
-        <p>{state.message}</p>
-        <Link href="/auctions" className="btn btn-outline">Browse free auction results</Link>
-      </div>
-    );
-  }
 
   return (
     <form action={action} className="su-card" noValidate key={JSON.stringify(state.values ?? {})}>
       <h2>{plan === "free" ? "Create your free account" : "Start your free trial"}</h2>
-      <p className="muted small">{plan === "free" ? "Free forever. Upgrade to Pro anytime." : "[Trial length] free, then [$XX]/month. Cancel anytime."}</p>
+      <p className="muted small">
+        {plan === "free" ? "Free forever. Upgrade to Pro anytime." : `${TRIAL_DAYS} days free, then ${PRO_PRICE_LABEL}/month. Cancel anytime.`}
+      </p>
       <input type="hidden" name="plan" value={plan} />
+      <input type="hidden" name="next" value={next} />
+      {state.message && <p className="su-error" role="alert">{state.message}</p>}
 
       <label className="su-field">
         <span>Full name</span>
@@ -45,8 +38,11 @@ export function SignupForm({ plan }: { plan: "free" | "pro" }) {
         {f.password ? <em id="err-pw">{f.password}</em> : <small id="pw-hint" className="muted">At least 8 characters.</small>}
       </label>
 
-      <button className="btn btn-primary su-submit" disabled={pending}>{pending ? "Starting…" : plan === "free" ? "Create free account" : "Start free trial"}</button>
-      <p className="small su-login">Already have an account? <Link href="/login" className="text-link small">Log in</Link></p>
+      <button className="btn btn-primary su-submit" disabled={pending}>
+        {pending ? "One moment…" : plan === "free" ? "Create free account" : "Start free trial"}
+      </button>
+      {plan === "pro" && <p className="small muted su-login">You&apos;ll add a card on the next step. You won&apos;t be charged until the trial ends.</p>}
+      <p className="small su-login">Already have an account? <Link href={`/login?next=${encodeURIComponent(next)}`} className="text-link small">Log in</Link></p>
     </form>
   );
 }

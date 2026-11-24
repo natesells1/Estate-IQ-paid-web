@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PRO_PRICE_LABEL, TRIAL_DAYS } from "@/lib/config";
 
 const FREE = [
   "Full auction history, every county",
@@ -12,7 +13,7 @@ const PRO = [
   "Owner name, phone and mailing address",
   "Full upcoming auction details: judgment, max bid, values",
   "Equity Score on every property",
-  "[Title search and skip trace pricing]",
+  "Title search $99 · skip trace $1.50",
 ];
 
 export function Plans() {
@@ -30,7 +31,7 @@ export function Plans() {
       <div className="plan plan-pro">
         <span className="plan-badge">Most popular</span>
         <div className="plan-name">Pro</div>
-        <div className="plan-price">[$XX]<span> / month</span></div>
+        <div className="plan-price">{PRO_PRICE_LABEL}<span> / month · {TRIAL_DAYS}-day free trial</span></div>
         <ul>{PRO.map((f) => <li key={f}>✓ {f}</li>)}</ul>
         <Link href="/signup?plan=pro" className="btn btn-primary">Start free trial</Link>
       </div>

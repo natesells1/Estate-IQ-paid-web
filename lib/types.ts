@@ -117,4 +117,5 @@ export type ViewRecord = TeaserRecord | FullRecord;
 
 export interface Viewer {
   isPro: boolean;
+  signedIn?: boolean;
 }

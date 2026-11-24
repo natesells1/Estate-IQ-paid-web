@@ -8,6 +8,7 @@ import { fmtDate, fmtMoney } from "@/lib/dates";
 import { equityBand, EQUITY_LABEL } from "@/lib/equity";
 import { KIND_LABEL } from "./RecordBits";
 import { Icon } from "./Icon";
+import { orderService } from "@/app/actions";
 
 type Props = { r: ViewRecord; isPro: boolean; docs: CourtDoc[]; backHref: string };
 type Tab = "summary" | "forms" | "dd" | "contacts";
@@ -180,8 +181,8 @@ export function PropertyView({ r, docs, backHref }: Props) {
           ))}
         </div>
         <div className="pc-services">
-          <Link href={`/signup?from=${r.id}&order=title-search`} className="btn btn-primary pc-svc"><span>Title search</span><span>$99</span></Link>
-          <Link href={`/signup?from=${r.id}&order=skip-trace`} className="btn btn-ghost pc-svc"><span>Skip trace</span><span>$1.50</span></Link>
+          <ServiceButton kind="title-search" id={r.id} className="btn btn-primary pc-svc"><span>Title search</span><span>$99</span></ServiceButton>
+          <ServiceButton kind="skip-trace" id={r.id} className="btn btn-ghost pc-svc"><span>Skip trace</span><span>$1.50</span></ServiceButton>
         </div>
       </div>
 
@@ -336,10 +337,21 @@ export function PropertyView({ r, docs, backHref }: Props) {
 
       {/* Mobile: services pinned above the tab bar */}
       <div className="pc-pinned mob-only">
-        <Link href={`/signup?from=${r.id}&order=title-search`} className="btn btn-primary">Title search · $99</Link>
-        <Link href={`/signup?from=${r.id}&order=skip-trace`} className="btn btn-ghost">Skip trace · $1.50</Link>
+        <ServiceButton kind="title-search" id={r.id} className="btn btn-primary">Title search · $99</ServiceButton>
+        <ServiceButton kind="skip-trace" id={r.id} className="btn btn-ghost">Skip trace · $1.50</ServiceButton>
       </div>
     </div>
+  );
+}
+
+/** Starts Stripe Checkout for a service (or sends signed-out visitors to sign up). */
+function ServiceButton({ kind, id, className, children }: { kind: string; id: string; className: string; children: React.ReactNode }) {
+  return (
+    <form action={orderService} className="pc-svc-form">
+      <input type="hidden" name="kind" value={kind} />
+      <input type="hidden" name="propertyId" value={id} />
+      <button className={className}>{children}</button>
+    </form>
   );
 }
 

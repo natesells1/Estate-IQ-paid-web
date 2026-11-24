@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icon } from "./Icon";
+import { PRO_PRICE_LABEL, TRIAL_DAYS } from "@/lib/config";
 
 const FREE = ["Property map and county search", "Auction dates, case numbers and sale results", "Public property pages"];
 const PRO: React.ReactNode[] = [
@@ -47,11 +48,11 @@ export function HomePricing() {
             <span className="price-flag">Most popular</span>
             <h3>Pro</h3>
             <p className="muted small">Everything in Free, plus the numbers that decide a bid.</p>
-            <div className="price">[$XX]<span> / month</span></div>
+            <div className="price">{PRO_PRICE_LABEL}<span> / month · {TRIAL_DAYS}-day free trial</span></div>
             <ul>
               {PRO.map((f, i) => <li key={i}><Icon name="check" size={15} /><span>{f}</span></li>)}
             </ul>
-            <Link href="/signup?plan=pro" className="btn btn-primary">Upgrade to Pro</Link>
+            <Link href="/signup?plan=pro" className="btn btn-primary">Start free trial</Link>
           </div>
           <div className="score-panel">
             <div className="rec-label">How the score reads</div>

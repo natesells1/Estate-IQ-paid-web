@@ -47,3 +47,26 @@
   .su-sub { font-size: 14.5px; }
   .su-h2 { font-size: 22px; }
 }
+
+/* Account + auth */
+.su-error { background: #fbeaea; color: var(--canceled); border-radius: 8px; padding: 8px 12px; font-size: 13.5px; }
+.pro-tag { margin-left: 6px; font-size: 10px; font-weight: 700; color: var(--green); background: var(--green-soft); padding: 2px 6px; border-radius: 5px; vertical-align: middle; }
+.pc-svc-form { display: contents; }
+.pc-svc-form button { width: 100%; }
+.acct { max-width: 900px; }
+.acct-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
+.acct-head h1 { font-size: 30px; }
+.acct-notice { padding: 10px 14px; border-radius: 10px; margin-bottom: 14px; font-weight: 500; }
+.acct-notice.ok { background: var(--green-soft); color: var(--green); }
+.acct-notice.warn { background: #fdf3e1; color: #8a5a00; }
+.acct-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+.acct-card { padding: 20px; display: grid; gap: 10px; }
+.acct-card h2 { font-size: 19px; }
+.acct-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.acct-orders { list-style: none; margin: 0; padding: 0; }
+.acct-orders li { display: flex; justify-content: space-between; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.acct-orders li > div { display: flex; flex-direction: column; }
+@media (max-width: 860px) {
+  .acct-grid { grid-template-columns: 1fr; }
+  .acct-head h1 { font-size: 24px; }
+}

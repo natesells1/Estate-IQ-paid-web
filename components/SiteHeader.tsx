@@ -12,7 +12,9 @@ export const NAV = [
   { href: "/#about", label: "About us", match: "" },
 ];
 
-export function SiteHeader() {
+export type HeaderAccount = { firstName: string; isPro: boolean } | null;
+
+export function SiteHeader({ account }: { account: HeaderAccount }) {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   useEffect(() => setOpen(false), [path]);
@@ -32,8 +34,14 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="header-actions">
-          <Link href="/login" className="login">Log in</Link>
-          {!path.startsWith("/signup") && <Link href="/signup" className="btn btn-primary">Start free trial</Link>}
+          {account ? (
+            <Link href="/account" className="login" aria-current={path.startsWith("/account") ? "page" : undefined}>{account.firstName}{account.isPro && <span className="pro-tag">PRO</span>}</Link>
+          ) : (
+            <Link href="/login" className="login">Log in</Link>
+          )}
+          {!path.startsWith("/signup") && !account?.isPro && (
+            <Link href="/signup?plan=pro" className="btn btn-primary">{account ? "Upgrade" : "Start free trial"}</Link>
+          )}
           <button className="menu-btn" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
             <Icon name={open ? "close" : "menu"} size={22} />
           </button>
@@ -43,7 +51,7 @@ export function SiteHeader() {
         {NAV.map((n) => (
           <Link key={n.label} href={n.href} onClick={() => setOpen(false)}>{n.label}</Link>
         ))}
-        <Link href="/login">Log in</Link>
+        {account ? <Link href="/account">Your account</Link> : <Link href="/login">Log in</Link>}
       </nav>
     </header>
   );
