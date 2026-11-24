@@ -69,7 +69,10 @@ export function HeroMap({ stats }: { stats: CountyStat[] }) {
         maxZoom: 18,
         className: "osm-tiles",
       }).addTo(m);
-      m.fitBounds(FLORIDA, { padding: [8, 8] });
+      // Zoom in as far as the county buttons allow, so they fill the map instead of empty ocean
+      const pts = stats.map((s) => [s.lat, s.lng] as [number, number]);
+      const fit = () => (pts.length ? m.fitBounds(L.latLngBounds(pts), { padding: [62, 34] }) : m.fitBounds(FLORIDA, { padding: [8, 8] }));
+      fit();
       for (const stat of stats) {
         L.marker([stat.lat, stat.lng], {
           interactive: false,
@@ -80,7 +83,7 @@ export function HeroMap({ stats }: { stats: CountyStat[] }) {
       map.current = m;
       ro = new ResizeObserver(() => {
         m.invalidateSize();
-        m.fitBounds(FLORIDA, { padding: [8, 8] });
+        fit();
       });
       ro.observe(container);
     })();
