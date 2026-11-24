@@ -7,9 +7,8 @@ import { AuctionResultsTable } from "@/components/AuctionResultsTable";
 import { AlertsSignup } from "@/components/AlertsSignup";
 import { HomePricing } from "@/components/HomePricing";
 import { Icon } from "@/components/Icon";
-import { FaqSection, FinalCta, HowItWorks, StatsBand } from "@/components/Marketing";
-import { auctionMonth, countyStats, countyMapRecords, filingCounts, newFilingsByCounty, soldResults } from "@/lib/data/queries";
-import { floridaToday } from "@/lib/dates";
+import { FaqSection, FinalCta, HowItWorks } from "@/components/Marketing";
+import { countyStats, countyMapRecords, filingCounts, newFilingsByCounty, soldResults } from "@/lib/data/queries";
 import { COUNTIES, COUNTY_BY_SLUG } from "@/lib/data/counties";
 import { getViewer } from "@/lib/viewer";
 
@@ -35,8 +34,6 @@ export default async function HomePage() {
   const leeRecords = countyMapRecords(viewer, "lee");
   const results = soldResults(viewer, "lee", 8);
   const alertCounties = COUNTIES.filter((c) => c.hot).map((c) => ({ slug: c.slug, name: c.name }));
-  const filingsThisWeek = Object.values(counts).reduce((a, b) => a + b, 0);
-  const auctionsThisMonth = auctionMonth(floridaToday().slice(0, 7), null, "all").totals.all;
 
   return (
     <>
@@ -45,7 +42,7 @@ export default async function HomePage() {
         <div className="wrap hero-grid">
           <div className="hero-copy">
             <span className="hero-badge"><span className="dot" style={{ background: "var(--green)" }} />Foreclosures · Tax deeds · Lis pendens</span>
-            <h1>Your #1 data source to track all distressed properties.</h1>
+            <h1>Be first to find the deals.</h1>
             <p className="hero-sub">
               Estate IQ pulls county foreclosure auctions, tax deed sales and lis pendens filings onto one map, with owner, value, equity
               and case details on every property.
@@ -110,8 +107,6 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
-
-      <StatsBand counties={COUNTIES.length} filingsThisWeek={filingsThisWeek} auctionsThisMonth={auctionsThisMonth} />
 
       <HowItWorks />
 

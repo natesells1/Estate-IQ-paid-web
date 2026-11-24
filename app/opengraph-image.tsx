@@ -12,7 +12,7 @@ export default function OgImage() {
           <div style={{ width: 64, height: 64, borderRadius: 16, background: "#0B7A55", display: "flex" }} />
           Estate IQ
         </div>
-        <div style={{ fontSize: 68, fontWeight: 700, lineHeight: 1.1, maxWidth: 950 }}>Your #1 data source to track all distressed properties.</div>
+        <div style={{ fontSize: 68, fontWeight: 700, lineHeight: 1.1, maxWidth: 950 }}>Be first to find the deals.</div>
         <div style={{ display: "flex", gap: 16, fontSize: 28 }}>
           <span style={{ background: "#F1EBFE", color: "#5B2DB8", padding: "8px 18px", borderRadius: 12 }}>Lis pendens</span>
           <span style={{ background: "#E8EDF8", color: "#1E3A8A", padding: "8px 18px", borderRadius: 12 }}>Foreclosure auctions</span>
