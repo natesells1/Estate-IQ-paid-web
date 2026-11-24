@@ -14,7 +14,7 @@
 .su-benefits span { color: var(--green); font-weight: 700; }
 
 .su-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r-card); box-shadow: 0 16px 40px rgba(16, 24, 40, 0.08); padding: 22px 20px; display: grid; gap: 12px; }
-.su-card h2 { font-size: 21px; }
+.su-card h2, .su-h1 { font-size: 21px; }
 .su-field { display: grid; gap: 5px; font-size: 13px; font-weight: 600; }
 .su-field .input { height: 44px; }
 .su-field em { font-style: normal; color: var(--canceled); font-weight: 500; font-size: 12.5px; }

@@ -14,8 +14,8 @@ const PRO: React.ReactNode[] = [
 // Bands follow the Equity Score spec (80+ / 70-79 / 45-69 / under 45).
 const BANDS = [
   { range: "80+", name: "Great", text: "wide spread between value and what's owed", color: "var(--eq-great)" },
-  { range: "70–79", name: "Good", text: "worth a closer look", color: "var(--eq-good)" },
-  { range: "45–69", name: "Fair", text: "thin margin, check liens", color: "var(--eq-fair)" },
+  { range: "70–79", name: "Good", text: "worth a closer look", color: "var(--eq-good)", ink: "var(--ink)" },
+  { range: "45–69", name: "Fair", text: "thin margin, check liens", color: "var(--eq-fair)", ink: "var(--ink)" },
   { range: "<45", name: "Weak", text: "owed is likely above value", color: "var(--eq-weak)" },
 ];
 
@@ -59,7 +59,7 @@ export function HomePricing() {
             <ul>
               {BANDS.map((b) => (
                 <li key={b.range}>
-                  <span className="score-chip" style={{ background: b.color }}>{b.range}</span>
+                  <span className="score-chip" style={{ background: b.color, color: (b as { ink?: string }).ink ?? "#fff" }}>{b.range}</span>
                   <span><b>{b.name}</b>: {b.text}</span>
                 </li>
               ))}

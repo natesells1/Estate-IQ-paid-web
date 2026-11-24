@@ -22,6 +22,8 @@ export const metadata: Metadata = {
   },
   description:
     "Your #1 data source to track all distressed properties in Florida: new lis pendens filings, foreclosure auctions and tax deed sales, with an Equity Score on every property.",
+  openGraph: { type: "website", siteName: "Estate IQ", locale: "en_US" },
+  twitter: { card: "summary_large_image" },
 };
 
 // Every page shows the signed-in state in the header, so pages render per visitor

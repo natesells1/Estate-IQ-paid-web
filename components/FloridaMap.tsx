@@ -35,7 +35,7 @@ export function FloridaMap({ stats }: { stats: CountyStat[] }) {
   return (
     <div className="fl-map">
       {/* Desktop: three count bubbles per county */}
-      <svg className="fl-desk" viewBox="220 30 665 545" role="img" aria-label="Florida hot counties: new lis pendens filings, auction results and tax deeds in the last 30 days">
+      <svg className="fl-desk" viewBox="220 30 665 545" role="group" aria-label="Florida hot counties: new lis pendens filings, auction results and tax deeds in the last 30 days">
         <rect x="0" y="0" width="900" height="640" fill="var(--water)" />
         <path d={PATH} fill="var(--land)" stroke="#e2dccd" strokeWidth="2" strokeLinejoin="round" />
         <ellipse {...LAKE} fill="var(--water)" />
@@ -47,7 +47,8 @@ export function FloridaMap({ stats }: { stats: CountyStat[] }) {
           const lw = label.length * 9.5 + 18;
           const lx = at.label === "right" ? at.x + GAP * 2 + R + 10 : at.x - R - 10 - lw;
           return (
-            <Link key={s.slug} href={`/lis-pendens/${s.slug}`} className="fl-county" aria-label={`${label}: ${counts[0]} lis pendens, ${counts[1]} auction results, ${counts[2]} tax deeds`}>
+            <Link key={s.slug} href={`/lis-pendens/${s.slug}`} className="fl-county">
+              <title>{`${label}: ${counts[0]} lis pendens, ${counts[1]} auction results, ${counts[2]} tax deeds`}</title>
               {counts.map((n, i) => (
                 <g key={i}>
                   <circle cx={at.x + i * GAP} cy={at.y} r={R} fill={COLORS[i]} stroke="#fff" strokeWidth="3" />

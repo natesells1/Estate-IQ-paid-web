@@ -15,7 +15,7 @@ export function SiteFooter() {
             </p>
           </div>
           <div>
-            <h4>Product</h4>
+            <h2 className="footer-h">Product</h2>
             <ul>
               <li><Link href="/lis-pendens">Lis pendens</Link></li>
               <li><Link href="/auctions">Auction calendar</Link></li>
@@ -24,7 +24,7 @@ export function SiteFooter() {
             </ul>
           </div>
           <div>
-            <h4>Counties</h4>
+            <h2 className="footer-h">Counties</h2>
             <ul>
               {hot.map((c) => (
                 <li key={c.slug}><Link href={`/auctions?county=${c.slug}`}>{c.name} County</Link></li>
@@ -32,7 +32,7 @@ export function SiteFooter() {
             </ul>
           </div>
           <div>
-            <h4>Company</h4>
+            <h2 className="footer-h">Company</h2>
             <ul>
               <li><Link href="/#about">About us</Link></li>
               <li><Link href="/#alerts">Email alerts</Link></li>

@@ -30,6 +30,8 @@ export function usDate(iso: string) {
 }
 
 const BAND_COLOR = { great: "var(--eq-great)", good: "var(--eq-good)", fair: "var(--eq-fair)", weak: "var(--eq-weak)" };
+/** Text colour that stays readable on each band colour (dark on the lighter Good/Fair). */
+export const BAND_INK = { great: "#fff", good: "var(--ink)", fair: "var(--ink)", weak: "#fff" };
 
 /** Badge for cards. null = locked (free user, score under 70). */
 export function EquityBadge({ score }: { score: number | null; locked?: boolean }) {
@@ -40,7 +42,7 @@ export function EquityBadge({ score }: { score: number | null; locked?: boolean 
   }
   const band = equityBand(score);
   const text = score >= 70 ? `High equity · ${score}` : `Equity Score · ${score} ${EQUITY_LABEL[band]}`;
-  return <span className="chip chip-eq" style={{ background: BAND_COLOR[band] }}>{text}</span>;
+  return <span className="chip chip-eq" style={{ background: BAND_COLOR[band], color: BAND_INK[band] }}>{text}</span>;
 }
 
 /** Compact square score for tables. */
@@ -50,7 +52,7 @@ export function EquityCell({ score }: { score: number | null }) {
       <span className="eq-locked"><Icon name="lock" size={12} stroke={2.2} />Pro</span>
     );
   }
-  return <span className="eq-num" style={{ background: BAND_COLOR[equityBand(score)] }} title={`Equity Score ${score} (${EQUITY_LABEL[equityBand(score)]})`}>{score}</span>;
+  return <span className="eq-num" style={{ background: BAND_COLOR[equityBand(score)], color: BAND_INK[equityBand(score)] }} title={`Equity Score ${score} (${EQUITY_LABEL[equityBand(score)]})`}>{score}</span>;
 }
 
 export function KindChip({ kind, date }: { kind: Kind; date: string }) {
@@ -64,7 +66,7 @@ export function KindChip({ kind, date }: { kind: Kind; date: string }) {
 export function RecordCard({ r, href, highlight }: { r: ViewRecord; href?: string; highlight?: boolean }) {
   if (r.locked) {
     return (
-      <Link href={href ?? `/signup?from=${r.id}`} className={`rec-card${highlight ? " is-hl" : ""}`} aria-label={`Case ${r.caseNumber}, ${KIND_LABEL[r.kind]} in ${r.countyName} County. Sign up to see the full file.`}>
+      <Link href={href ?? `/signup?from=${r.id}`} className={`rec-card${highlight ? " is-hl" : ""}`}>
         <div className="rec-top">
           <img className="rec-photo" src={r.photoUrl} alt="" width={88} height={80} loading="lazy" />
           <div className="rec-id">

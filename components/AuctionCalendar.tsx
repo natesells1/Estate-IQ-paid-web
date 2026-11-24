@@ -205,9 +205,9 @@ export function AuctionCalendar(props: Props) {
       {/* Type chips + month totals */}
       <div className="ac-sub">
         <div className="scroll-x ac-types" role="group" aria-label="Auction type">
-          <Link href={href({ type: "all", id: null })} className="pill" aria-pressed={type === "all"}>All auctions <span className="count">{totals.foreclosure + totals.taxDeed}</span></Link>
-          <Link href={href({ type: "foreclosure", id: null })} className="pill" aria-pressed={type === "foreclosure"}><span className="dot dot-fc" />Foreclosure <span className="count">{totals.foreclosure}</span></Link>
-          <Link href={href({ type: "tax_deed", id: null })} className="pill" aria-pressed={type === "tax_deed"}><span className="dot dot-td" />Tax deed <span className="count">{totals.taxDeed}</span></Link>
+          <Link href={href({ type: "all", id: null })} className="pill" aria-current={type === "all" ? "page" : undefined}>All auctions <span className="count">{totals.foreclosure + totals.taxDeed}</span></Link>
+          <Link href={href({ type: "foreclosure", id: null })} className="pill" aria-current={type === "foreclosure" ? "page" : undefined}><span className="dot dot-fc" />Foreclosure <span className="count">{totals.foreclosure}</span></Link>
+          <Link href={href({ type: "tax_deed", id: null })} className="pill" aria-current={type === "tax_deed" ? "page" : undefined}><span className="dot dot-td" />Tax deed <span className="count">{totals.taxDeed}</span></Link>
         </div>
         <p className="ac-totals small">
           <b>{totals.soldThirdParty}</b> sold to third parties · <b>{totals.backToPlaintiff}</b> back to plaintiff · <b>{totals.canceled}</b> canceled · <b>{totals.scheduled}</b> still scheduled
@@ -222,8 +222,8 @@ export function AuctionCalendar(props: Props) {
             <h2>{monthLabel}</h2>
             <Link href={href({ date: null, month: shiftMonth(month, 1), id: null })} className="ac-nav" aria-label="Next month">›</Link>
           </div>
-          <div className="ac-grid" role="grid" aria-label={monthLabel}>
-            {WEEK.map((w) => <div key={w} className="ac-wd" role="columnheader">{w}</div>)}
+          <div className="ac-grid">
+            {WEEK.map((w) => <div key={w} className="ac-wd" aria-hidden="true">{w}</div>)}
             {cells.map((c) => {
               const d = monthDays[c.iso];
               const n = Number(c.iso.slice(8));
@@ -238,9 +238,9 @@ export function AuctionCalendar(props: Props) {
               );
               const cls = `ac-cell${c.inMonth ? "" : " is-out"}${isSel ? " is-sel" : ""}${d && c.inMonth ? " has" : ""}`;
               return c.inMonth && d ? (
-                <Link key={c.iso} href={href({ date: c.iso, id: null })} className={cls} role="gridcell" aria-selected={isSel} aria-label={`${fmtDate(c.iso, { weekday: "long", month: "long", day: "numeric" })}: ${d.fc} foreclosure, ${d.td} tax deed`}>{body}</Link>
+                <Link key={c.iso} href={href({ date: c.iso, id: null })} className={cls} aria-current={isSel ? "date" : undefined}><span className="sr-only">{fmtDate(c.iso, { weekday: "long", month: "long" })} </span>{body}</Link>
               ) : (
-                <div key={c.iso} className={cls} role="gridcell">{body}</div>
+                <div key={c.iso} className={cls} aria-hidden={!c.inMonth || undefined}>{body}</div>
               );
             })}
           </div>

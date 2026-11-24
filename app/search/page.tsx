@@ -19,6 +19,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
   return (
     <section className="section">
       <div className="wrap">
+        <h1 className="sr-only">Search results</h1>
         <form className="hero-search" action="/search" method="get" role="search" style={{ marginTop: 0 }}>
           {kind && <input type="hidden" name="type" value={kind} />}
           <label className="search-field">

@@ -191,7 +191,7 @@ export function PropertyView({ r, docs, backHref }: Props) {
           {tab === "summary" && (
             <>
               <section className="card pc-sec">
-                <h3 className="pc-eyebrow">Property details</h3>
+                <h2 className="pc-eyebrow">Property details</h2>
                 <dl className="pc-dl">
                   <Row k="Bed / bath" v={full && `${full.beds} / ${full.baths}`} />
                   <Row k="Strap #" v={full?.parcelId} />
@@ -208,9 +208,9 @@ export function PropertyView({ r, docs, backHref }: Props) {
                 </dl>
               </section>
               <section className="card pc-sec">
-                <h3 className={`pc-eyebrow ${isLp ? "tone-lp" : r.kind === "tax_deed" ? "tone-td" : "tone-fc"}`}>
+                <h2 className={`pc-eyebrow ${isLp ? "tone-lp" : r.kind === "tax_deed" ? "tone-td" : "tone-fc"}`}>
                   {isLp ? "Foreclosure · Lis pendens" : r.kind === "tax_deed" ? "Tax deed · Sale" : "Foreclosure · Auction"}
-                </h3>
+                </h2>
                 <dl className="pc-dl">
                   <Row k="Case #" v={r.caseNumber} />
                   <Row k={isLp ? "Filing type" : "Sale date"} v={isLp ? full?.details.filingType : longDate(r.date)} />
@@ -231,7 +231,7 @@ export function PropertyView({ r, docs, backHref }: Props) {
 
           {tab === "forms" && (
             <section className="card pc-sec">
-              <h3 className="pc-eyebrow">Court documents</h3>
+              <h2 className="pc-eyebrow">Court documents</h2>
               <ul className="pc-docs">
                 {docs.map((d) => (
                   <li key={d.name}>
@@ -247,7 +247,7 @@ export function PropertyView({ r, docs, backHref }: Props) {
 
           {tab === "dd" && (
             <section className="card pc-sec">
-              <h3 className="pc-eyebrow">Due diligence</h3>
+              <h2 className="pc-eyebrow">Due diligence</h2>
               <p className="muted small" style={{ marginBottom: 12 }}>Your checklist for this property. It saves in this browser.</p>
               <ul className="pc-check">
                 {DD_ITEMS.map((item) => (
@@ -269,7 +269,7 @@ export function PropertyView({ r, docs, backHref }: Props) {
 
           {tab === "contacts" && (
             <section className="card pc-sec">
-              <h3 className="pc-eyebrow">Contacts</h3>
+              <h2 className="pc-eyebrow">Contacts</h2>
               <div className="pc-contacts">
                 <div className="pc-contact">
                   <span className="rec-label">Owner (defendant)</span>

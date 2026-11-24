@@ -29,7 +29,7 @@ a.ac-cell:hover { background: #f8faf8; }
 .ac-chip { display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 5px; font-size: 11px; font-weight: 700; width: 100%; max-width: 92px; }
 .ac-chip .dot { width: 6px; height: 6px; }
 .ac-fc { background: var(--fc-soft); color: var(--fc); }
-.ac-td { background: var(--td-soft); color: #b4540a; }
+.ac-td { background: var(--td-soft); color: #9a4508; }
 .ac-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 14px; border-top: 1px solid var(--border); }
 .ac-legend span { display: inline-flex; align-items: center; gap: 5px; }
 

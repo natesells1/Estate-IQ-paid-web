@@ -7,7 +7,7 @@ export function LoginForm({ next }: { next: string }) {
   const [state, action, pending] = useActionState<LoginState, FormData>(logIn, { message: "" });
   return (
     <form action={action} className="su-card" key={state.email ?? ""}>
-      <h2>Log in</h2>
+      <h1 className="su-h1">Log in</h1>
       <input type="hidden" name="next" value={next} />
       {state.message && <p className="su-error" role="alert">{state.message}</p>}
       <label className="su-field">

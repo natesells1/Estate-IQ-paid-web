@@ -15,7 +15,7 @@ export function filedLabel(r: ViewRecord) {
 export function LpTile({ r, href }: { r: ViewRecord; href?: string }) {
   const link = href ?? (r.locked ? `/signup?from=${r.id}` : `/property/${r.id}`);
   return (
-    <Link href={link} className="tile" aria-label={r.locked ? `Case ${r.caseNumber}. Sign up to see the full file.` : `${r.address}, ${r.city}`}>
+    <Link href={link} className="tile">
       <div className="tile-photo">
         <img src={r.photoUrl} alt="" loading="lazy" />
         <span className={`tile-type ${KIND_TONE[r.kind]}`}>{KIND_LABEL[r.kind].toUpperCase()}</span>
