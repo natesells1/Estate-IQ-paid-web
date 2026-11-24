@@ -33,7 +33,7 @@ export function SiteHeader() {
         </nav>
         <div className="header-actions">
           <Link href="/login" className="login">Log in</Link>
-          <Link href="/signup" className="btn btn-primary">Start free trial</Link>
+          {!path.startsWith("/signup") && <Link href="/signup" className="btn btn-primary">Start free trial</Link>}
           <button className="menu-btn" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>
             <Icon name={open ? "close" : "menu"} size={22} />
           </button>

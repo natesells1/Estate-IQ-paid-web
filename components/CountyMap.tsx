@@ -114,7 +114,8 @@ export function CountyMap({ records, countyName, center }: { records: ViewRecord
           return mk;
         }),
       );
-      const m = map.current!;
+      const m = map.current;
+      if (!m) return;
       if (!fitted.current && visible.length) {
         fitted.current = true;
         m.fitBounds(L.latLngBounds(visible.map((r) => [r.lat, r.lng] as [number, number])), { padding: [24, 24], maxZoom: 13 });

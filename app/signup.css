@@ -1,0 +1,49 @@
+/* ───────────── Sign up + pricing ───────────── */
+.su-hero { padding-top: 40px; }
+.su-grid { display: grid; grid-template-columns: 1fr 414px; gap: 64px; align-items: start; }
+.su-grid > * { min-width: 0; }
+.su-eyebrow { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 6px; background: var(--green-soft); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.su-copy h1 { font-size: 40px; line-height: 1.1; margin: 16px 0 14px; max-width: 440px; }
+.su-sub { color: var(--ink-2); font-size: 15.5px; max-width: 430px; }
+.su-preview { display: flex; gap: 12px; align-items: center; padding: 10px; margin: 22px 0 18px; max-width: 432px; }
+.su-preview img { width: 88px; height: 60px; border-radius: 8px; object-fit: cover; flex: none; background: #e9ece8; }
+.su-preview-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.su-preview-addr { font-weight: 700; font-size: 14px; }
+.su-benefits { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 14.5px; }
+.su-benefits li { display: flex; gap: 10px; }
+.su-benefits span { color: var(--green); font-weight: 700; }
+
+.su-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r-card); box-shadow: 0 16px 40px rgba(16, 24, 40, 0.08); padding: 22px 20px; display: grid; gap: 12px; }
+.su-card h2 { font-size: 21px; }
+.su-field { display: grid; gap: 5px; font-size: 13px; font-weight: 600; }
+.su-field .input { height: 44px; }
+.su-field em { font-style: normal; color: var(--canceled); font-weight: 500; font-size: 12.5px; }
+.su-field small { font-weight: 400; font-size: 12px; }
+.su-field .input[aria-invalid="true"] { border-color: var(--canceled); }
+.su-pw { position: relative; }
+.su-pw .input { padding-right: 64px; }
+.su-pw button { position: absolute; right: 6px; top: 6px; height: 32px; padding: 0 10px; border: 0; background: #f2f4f7; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.su-submit { height: 46px; width: 100%; margin-top: 4px; }
+.su-login { text-align: center; color: var(--ink-2); }
+.su-done { justify-items: start; }
+.su-done-icon { width: 42px; height: 42px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; }
+.su-done p { color: var(--ink-2); }
+
+.su-plans { padding-top: 8px; }
+.su-h2 { font-size: 26px; margin-bottom: 16px; }
+.su-faq { padding-top: 0; }
+.su-faq-list { display: grid; gap: 8px; max-width: 760px; }
+.su-faq details { padding: 0; }
+.su-faq summary { cursor: pointer; list-style: none; padding: 14px 18px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; min-height: 48px; }
+.su-faq summary::-webkit-details-marker { display: none; }
+.su-faq summary::after { content: "+"; font-size: 20px; color: var(--muted); font-weight: 400; }
+.su-faq details[open] summary::after { content: "–"; }
+.su-faq details p { padding: 0 18px 16px; color: var(--ink-2); font-size: 14.5px; }
+
+@media (max-width: 860px) {
+  .su-hero { padding-top: 20px; }
+  .su-grid { grid-template-columns: 1fr; gap: 24px; }
+  .su-copy h1 { font-size: 28px; }
+  .su-sub { font-size: 14.5px; }
+  .su-h2 { font-size: 22px; }
+}
