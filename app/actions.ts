@@ -164,3 +164,25 @@ export async function orderService(form: FormData) {
   }
   redirect(url);
 }
+
+/* ───────────── Contact ───────────── */
+
+export type ContactState = { ok: boolean; message: string };
+
+export async function sendContact(_prev: ContactState, form: FormData): Promise<ContactState> {
+  const name = String(form.get("name") ?? "").trim().slice(0, 120);
+  const email = String(form.get("email") ?? "").trim().toLowerCase();
+  const topic = String(form.get("topic") ?? "general").slice(0, 40);
+  const message = String(form.get("message") ?? "").trim();
+  if (name.length < 2) return { ok: false, message: "Enter your name." };
+  if (!EMAIL_RE.test(email) || email.length > 200) return { ok: false, message: "Enter a valid email address." };
+  if (message.length < 10 || message.length > 4000) return { ok: false, message: "Write a message of at least 10 characters." };
+  if (await rateLimited("contact", email, 5)) return { ok: false, message: "Too many messages. Please wait a few minutes." };
+  try {
+    await q("insert into contact_messages (name, email, topic, message) values ($1, $2, $3, $4)", [name, email, topic, message]);
+  } catch (e) {
+    console.error("[contact] save failed", (e as Error).message);
+    return { ok: false, message: "We couldn't send that right now. Please try again." };
+  }
+  return { ok: true, message: `Thanks, ${name.split(" ")[0]}. We'll reply to ${email} within one business day.` };
+}

@@ -33,12 +33,12 @@
 .su-h2 { font-size: 26px; margin-bottom: 16px; }
 .su-faq { padding-top: 0; }
 .su-faq-list { display: grid; gap: 8px; max-width: 760px; }
-.su-faq details { padding: 0; }
-.su-faq summary { cursor: pointer; list-style: none; padding: 14px 18px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; min-height: 48px; }
-.su-faq summary::-webkit-details-marker { display: none; }
-.su-faq summary::after { content: "+"; font-size: 20px; color: var(--muted); font-weight: 400; }
-.su-faq details[open] summary::after { content: "–"; }
-.su-faq details p { padding: 0 18px 16px; color: var(--ink-2); font-size: 14.5px; }
+.su-faq-list details { padding: 0; }
+.su-faq-list summary { cursor: pointer; list-style: none; padding: 14px 18px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; min-height: 48px; }
+.su-faq-list summary::-webkit-details-marker { display: none; }
+.su-faq-list summary::after { content: "+"; font-size: 20px; color: var(--muted); font-weight: 400; }
+.su-faq-list details[open] summary::after { content: "–"; }
+.su-faq-list details p { padding: 0 18px 16px; color: var(--ink-2); font-size: 14.5px; }
 
 @media (max-width: 860px) {
   .su-hero { padding-top: 20px; }

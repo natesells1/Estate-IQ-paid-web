@@ -36,13 +36,14 @@ export function SiteFooter() {
             <ul>
               <li><Link href="/#about">About us</Link></li>
               <li><Link href="/#alerts">Email alerts</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
               <li><Link href="/login">Log in</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-base">
-          <span>© {new Date().getFullYear()} Estate IQ. Public records data. Not legal or financial advice.</span>
-          <span>Sample data shown. Addresses, lenders and owners are made up.</span>
+          <span>© {new Date().getFullYear()} Estate IQ. Florida public records data. Not legal or financial advice.</span>
+          <span className="footer-legal"><Link href="/terms">Terms of service</Link><Link href="/privacy">Privacy policy</Link><Link href="/contact">Contact</Link></span>
         </div>
       </div>
     </footer>

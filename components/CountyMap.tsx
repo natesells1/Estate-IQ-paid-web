@@ -148,7 +148,6 @@ export function CountyMap({ records, countyName, center }: { records: ViewRecord
           <div ref={el} className="cmap-canvas" aria-label={`Map of ${countyName} County properties`} />
           <div className="cmap-tags">
             <span className="map-tag">{countyName} County, FL</span>
-            <span className="map-tag map-tag-sample">Sample data</span>
           </div>
           <div className="cmap-legend">
             <span><span className="pin pin-sm pin-foreclosure">F</span>Foreclosure</span>
@@ -160,7 +159,7 @@ export function CountyMap({ records, countyName, center }: { records: ViewRecord
         <aside className="cmap-side">
           {selected ? <SelectedCard r={selected} /> : <div className="sel-card"><p className="muted" style={{ padding: 16 }}>No properties for this filter.</p></div>}
           <div className="sel-list">
-            <div className="sel-list-head">{listed.length} {listed.length === 1 ? "property" : "properties"} in view · sample data</div>
+            <div className="sel-list-head">{listed.length} {listed.length === 1 ? "property" : "properties"} in view</div>
             <ul>
               {listed.map((r) => (
                 <li key={r.id}>

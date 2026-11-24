@@ -1,5 +1,4 @@
 /* ───────────── Lis pendens by day ───────────── */
-:root:has(.page-wide) { --wrap: 1101px; }
 .lp-section { padding-top: 28px; }
 
 .lp-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }

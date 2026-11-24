@@ -8,7 +8,9 @@ import { AlertsSignup } from "@/components/AlertsSignup";
 import { HomePricing } from "@/components/HomePricing";
 import { HeroSampleCard } from "@/components/Tiles";
 import { Icon } from "@/components/Icon";
-import { countyStats, countyMapRecords, filingCounts, newFilingsByCounty, soldResults, topFiling } from "@/lib/data/queries";
+import { FaqSection, FinalCta, HowItWorks, StatsBand } from "@/components/Marketing";
+import { auctionMonth, countyStats, countyMapRecords, filingCounts, newFilingsByCounty, soldResults, topFiling } from "@/lib/data/queries";
+import { floridaToday } from "@/lib/dates";
 import { COUNTIES, COUNTY_BY_SLUG } from "@/lib/data/counties";
 import { getViewer } from "@/lib/viewer";
 
@@ -35,6 +37,8 @@ export default async function HomePage() {
   const results = soldResults(viewer, "lee", 8);
   const sample = topFiling(viewer, "lee");
   const alertCounties = COUNTIES.filter((c) => c.hot).map((c) => ({ slug: c.slug, name: c.name }));
+  const filingsThisWeek = Object.values(counts).reduce((a, b) => a + b, 0);
+  const auctionsThisMonth = auctionMonth(floridaToday().slice(0, 7), null, "all").totals.all;
 
   return (
     <>
@@ -49,6 +53,12 @@ export default async function HomePage() {
               and case details on every property.
             </p>
             <HeroSearch />
+            <div className="hero-trust">
+              <span><Icon name="check" size={15} stroke={2.4} />Auction history free</span>
+              <span><Icon name="check" size={15} stroke={2.4} />{COUNTIES.length} Florida counties</span>
+              <span><Icon name="check" size={15} stroke={2.4} />Updated every weekday</span>
+              <a href="#how-it-works" className="text-link">See how it works ↓</a>
+            </div>
           </div>
 
           <div className="hero-map">
@@ -104,6 +114,10 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <StatsBand counties={COUNTIES.length} filingsThisWeek={filingsThisWeek} auctionsThisMonth={auctionsThisMonth} />
+
+      <HowItWorks />
+
       <LisPendensSection counties={lpCounties} filings={filings} initial="lee" />
 
       <section className="section band-white" id="property-map">
@@ -123,7 +137,6 @@ export default async function HomePage() {
             <Link href="/auctions?county=lee" className="text-link">All {lee.name} County results →</Link>
           </div>
           <AuctionResultsTable rows={results} />
-          <p className="muted small" style={{ marginTop: 12 }}>Sample rows. Live pages pull from county auction records.</p>
         </div>
       </section>
 
@@ -154,7 +167,11 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <FaqSection />
+
       <AlertsSignup counties={alertCounties} />
+
+      <FinalCta />
     </>
   );
 }

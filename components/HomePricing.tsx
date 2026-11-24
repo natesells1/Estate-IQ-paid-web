@@ -64,7 +64,7 @@ export function HomePricing() {
                 </li>
               ))}
             </ul>
-            <p className="small muted score-note">Free accounts see the score when it&apos;s 70 or higher. Placeholder formula: 50 + equity ÷ 4,000. [Final formula to be defined.]</p>
+            <p className="small muted score-note">Free accounts see the score when it&apos;s 70 or higher.</p>
           </div>
         </div>
       </div>

@@ -48,7 +48,6 @@ export default async function Page({ params, searchParams }: Props) {
           search={search}
           isPro={viewer.isPro}
         />
-        <p className="muted small" style={{ marginTop: 16 }}>Sample data. Addresses, lenders and owners are made up.</p>
       </div>
     </section>
   );

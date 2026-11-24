@@ -58,7 +58,7 @@ export function HeroSampleCard({ r }: { r: ViewRecord }) {
   const score = r.equityScore;
   return (
     <Link href={r.locked ? `/signup?from=${r.id}` : `/property/${r.id}`} className="hero-sample">
-      <div className="hero-sample-photo"><img src={r.photoUrl} alt="" /><span className="hero-sample-tag">Sample</span></div>
+      <div className="hero-sample-photo"><img src={r.photoUrl} alt="" /></div>
       <div className="hero-sample-body">
         <span className="hero-sample-kind">{KIND_LABEL[r.kind].toUpperCase()} · {filedLabel(r).toUpperCase()}</span>
         <b className="hero-sample-case">Case {r.caseNumber}</b>

@@ -20,7 +20,7 @@ export function LoginForm({ next }: { next: string }) {
       </label>
       <button className="btn btn-primary su-submit" disabled={pending}>{pending ? "Logging in…" : "Log in"}</button>
       <p className="small su-login">New to Estate IQ? <Link href={`/signup?next=${encodeURIComponent(next)}`} className="text-link small">Start free trial</Link></p>
-      <p className="small muted su-login">Forgot your password? Email support and we&apos;ll reset it. [Self-serve reset comes with the email service.]</p>
+      <p className="small muted su-login">Forgot your password? <Link href="/contact?topic=password" className="text-link small">Contact us</Link> and we&apos;ll reset it.</p>
     </form>
   );
 }

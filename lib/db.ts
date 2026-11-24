@@ -39,6 +39,34 @@ create table if not exists orders (
   created_at timestamptz not null default now()
 );
 create index if not exists orders_user_idx on orders(user_id);
+create table if not exists saved_properties (
+  user_id uuid not null references users(id) on delete cascade,
+  property_id text not null,
+  created_at timestamptz not null default now(),
+  primary key (user_id, property_id)
+);
+create table if not exists property_watches (
+  user_id uuid not null references users(id) on delete cascade,
+  property_id text not null,
+  created_at timestamptz not null default now(),
+  primary key (user_id, property_id)
+);
+create table if not exists alert_prefs (
+  user_id uuid primary key references users(id) on delete cascade,
+  enabled boolean not null default true,
+  counties text not null default 'lee',
+  kinds text not null default 'lis_pendens,foreclosure,tax_deed',
+  min_score integer not null default 70,
+  updated_at timestamptz not null default now()
+);
+create table if not exists contact_messages (
+  id serial primary key,
+  name text not null,
+  email text not null,
+  topic text not null,
+  message text not null,
+  created_at timestamptz not null default now()
+);
 create table if not exists alert_subscribers (
   id serial primary key,
   email text not null,

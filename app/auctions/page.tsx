@@ -68,7 +68,6 @@ export default async function Page({ searchParams }: { searchParams: Promise<SP>
           highlightId={highlightId}
           isPro={viewer.isPro}
         />
-        <p className="muted small" style={{ marginTop: 16 }}>Sample data. Addresses, lenders and owners are made up.</p>
       </div>
     </section>
   );

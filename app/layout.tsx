@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { SiteHeader, TabBar } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { DemoBanner } from "@/components/DemoBanner";
 import { siteUrl } from "@/lib/site";
 import { currentUser, isProUser } from "@/lib/auth";
 import "./globals.css";
@@ -37,6 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${inter.variable} ${space.variable}`}>
       <body>
+        <DemoBanner />
         <SiteHeader account={account} />
         <main>{children}</main>
         <SiteFooter />

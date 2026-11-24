@@ -6,8 +6,8 @@ import { findById, toView, topFiling } from "@/lib/data/queries";
 import { currentUser, isProUser } from "@/lib/auth";
 import { upgrade } from "@/app/actions";
 import { PRO_PRICE_LABEL, TRIAL_DAYS } from "@/lib/config";
-import { COUNTIES } from "@/lib/data/counties";
 import type { ViewRecord } from "@/lib/types";
+import { FAQ } from "@/lib/faq";
 
 export const metadata: Metadata = {
   title: "Start your free trial",
@@ -42,23 +42,7 @@ export default async function SignupPage({ searchParams }: { searchParams: Promi
   const preview = p ? toView(p, free) : topFiling(free, "lee");
   const plan = sp.plan === "free" ? "free" : "pro";
   const next = sp.next?.startsWith("/") && !sp.next.startsWith("//") ? sp.next : sp.from && p ? `/property/${p.id}` : "/account";
-  const counties = COUNTIES.map((c) => c.name);
 
-  const FAQ = [
-    {
-      q: "What can I see for free?",
-      a: "Every auction result in every county we cover, in full. For new lis pendens filings and upcoming auctions you see the photo, case number and filing or sale date, plus the Equity Score when it's 70 or higher.",
-    },
-    {
-      q: "What does Pro unlock?",
-      a: "The address, owner name and contact, mortgage, final judgment, plaintiff max bid and values on every new filing and upcoming auction, plus the Equity Score on every property.",
-    },
-    { q: "How much is Pro?", a: `${PRO_PRICE_LABEL} a month after a ${TRIAL_DAYS}-day free trial. Title searches are $99 and skip traces $1.50 each, on any plan.` },
-    { q: "How often is the data updated?", a: "New lis pendens filings load every weekday with that day's filings. Auction results load for each day an auction runs." },
-    { q: "Which counties do you cover?", a: `${counties.slice(0, -1).join(", ")} and ${counties[counties.length - 1]} counties, with more coming.` },
-    { q: "What is the Equity Score?", a: "A 1–100 score that weighs fair market value against what's owed: the mortgage on a lis pendens, or the final judgment at auction. 80+ is Great, 70–79 Good, 45–69 Fair, under 45 Weak." },
-    { q: "Can I cancel anytime?", a: `Yes. Pro starts with a ${TRIAL_DAYS}-day free trial, then ${PRO_PRICE_LABEL}/month. Cancel from your account before the trial ends and you won't be charged.` },
-  ];
 
   return (
     <>

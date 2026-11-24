@@ -34,7 +34,6 @@ export default async function PropertyPage({ params }: Params) {
     <section className="section lp-section page-wide">
       <div className="wrap">
         <PropertyView r={v} isPro={viewer.isPro} docs={courtDocuments(p.kind, p.date, p.status)} backHref={backHref} />
-        <p className="muted small" style={{ marginTop: 20 }}>Sample data. Photos are placeholders for the street-view and aerial images.</p>
       </div>
     </section>
   );
