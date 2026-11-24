@@ -1,0 +1,206 @@
+/* ───────────── Visibility helpers ───────────── */
+.mob-only { display: none !important; }
+.ellipsis { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nowrap { white-space: nowrap; }
+.h-sm { font-size: 22px !important; }
+
+/* ───────────── Hero ───────────── */
+.hero { background: #fff; border-bottom: 1px solid var(--border); padding: 56px 0 40px; }
+.hero h1 { font-size: 52px; max-width: 860px; font-weight: 700; }
+.hero-sub { color: var(--ink-2); font-size: 18px; margin-top: 14px; max-width: 720px; }
+.hero-tabs { margin-top: 28px; }
+.hero-search { display: flex; gap: 10px; margin-top: 14px; max-width: 860px; }
+.hero-search .input { height: 52px; }
+.hero-search .btn { height: 52px; padding: 0 32px; font-size: 15px; }
+.hero-popular { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.pop-chip { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; background: #f2f4f7; border-radius: 6px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+.pop-chip:hover { background: #e4e7ec; }
+
+/* ───────────── Florida map ───────────── */
+.fl-card { overflow: hidden; }
+.fl-map svg { display: block; width: 100%; height: auto; }
+.fl-mob { display: none !important; }
+.fl-name { font-family: var(--font-head); font-weight: 700; font-size: 16px; fill: var(--ink); }
+.fl-count { font-family: var(--font-body); font-weight: 700; font-size: 12px; }
+.fl-chip { font-family: var(--font-body); font-weight: 700; font-size: 17px; fill: var(--ink); letter-spacing: 0.02em; }
+.fl-county:hover rect:first-child { stroke: var(--ink); }
+.fl-legend { display: flex; gap: 20px; padding: 14px 20px; border-top: 1px solid var(--border); font-size: 13px; color: var(--ink-2); }
+.fl-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.fl-layout { display: grid; grid-template-columns: 1fr 340px; gap: 16px; align-items: start; }
+.fl-list { list-style: none; padding: 0; margin: 0; overflow: hidden; }
+.fl-list-head { display: flex; justify-content: space-between; padding: 12px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); background: #fcfcfd; }
+.fl-list-head .fl-list-counts span { min-width: 48px; text-align: center; }
+.fl-list .count-pill { min-width: 48px; }
+.fl-list a:hover { background: #fafbfc; }
+.fl-list li + li { border-top: 1px solid var(--border); }
+.fl-list a { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 14px; }
+.fl-list-counts { display: flex; gap: 6px; }
+.type-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.type-card { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px; }
+.type-card:hover { border-color: var(--border-strong); }
+.type-card .dot { margin-bottom: 6px; }
+
+/* ───────────── Record cards (teaser + full) ───────────── */
+.card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.rec-card { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+.rec-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-lg); }
+.rec-card.is-hl { border-color: var(--fc); box-shadow: 0 0 0 2px var(--fc-soft); }
+.rec-top { display: flex; gap: 12px; padding: 14px 14px 10px; }
+.rec-photo { width: 88px; height: 80px; border-radius: 10px; object-fit: cover; flex: none; background: #e8eee9; }
+.rec-id { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.rec-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.rec-case { font-family: var(--font-head); font-weight: 700; font-size: 18px; }
+.rec-addr { font-family: var(--font-head); font-weight: 700; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rec-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.rec-hidden { padding: 4px 14px 12px; display: grid; gap: 8px; font-size: 13px; }
+.rec-line-lg { font-weight: 700; }
+.rec-grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.rec-stats { padding: 4px 14px 12px; font-size: 13.5px; }
+.rec-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-top: 1px solid var(--border); background: #fcfcfd; }
+.rec-foot-msg { display: inline-flex; align-items: center; gap: 6px; line-height: 1.3; }
+.rec-foot .btn { flex: none; }
+
+.lp-controls { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; }
+.lp-search { flex: 0 0 260px; }
+.lp-search .input { height: 44px; }
+.lp-controls .scroll-x { flex: 1; }
+
+/* ───────────── County map ───────────── */
+.cmap-filters { margin-bottom: 14px; }
+.cmap-body { display: grid; grid-template-columns: 1fr 400px; gap: 16px; }
+.cmap-map { position: relative; overflow: hidden; }
+.cmap-canvas { height: 600px; width: 100%; z-index: 0; }
+.cmap-legend { position: absolute; left: 12px; bottom: 12px; z-index: 500; display: flex; gap: 14px; background: #fff; border-radius: 999px; padding: 6px 14px; font-size: 12.5px; box-shadow: var(--shadow-lg); }
+.cmap-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.cmap-side { display: flex; flex-direction: column; max-height: 600px; overflow: hidden; }
+.cmap-selected { padding: 14px; border-bottom: 1px solid var(--border); }
+.cmap-selected .rec-card { box-shadow: none; }
+.cmap-list-head { padding: 12px 16px 6px; font-size: 13px; color: var(--muted); }
+.cmap-list { list-style: none; margin: 0; padding: 0 8px; overflow-y: auto; flex: 1; }
+.cmap-list button { width: 100%; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 8px; border: 0; background: none; border-radius: 10px; cursor: pointer; text-align: left; }
+.cmap-list button:hover { background: #f6f7f9; }
+.cmap-list button.is-sel { background: var(--green-soft); }
+.cmap-li-main { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; font-size: 13.5px; }
+.cmap-li-main b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.cmap-more { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13.5px; font-weight: 600; color: var(--green); }
+
+.pin { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; color: #fff; font-weight: 700; font-size: 12.5px; border: 2.5px solid #fff; box-shadow: 0 2px 6px rgba(15, 27, 45, 0.3); font-family: var(--font-body); }
+.pin.is-sel { transform: scale(1.3); box-shadow: 0 0 0 4px rgba(15, 27, 45, 0.18), 0 2px 6px rgba(15, 27, 45, 0.3); }
+.pin-sm { width: 22px; height: 22px; font-size: 10.5px; border-width: 2px; flex: none; }
+.pin-foreclosure { background: var(--fc); }
+.pin-tax_deed { background: var(--td); }
+.pin-lis_pendens { background: var(--lp); }
+.leaflet-popup-content-wrapper { border-radius: 10px; }
+.leaflet-popup-content { margin: 10px 12px; font-family: var(--font-body); font-size: 12.5px; line-height: 1.45; }
+.pop b { font-size: 13.5px; }
+.pop a { color: var(--green); font-weight: 700; }
+
+/* ───────────── Tables ───────────── */
+.table-card { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 12px 10px; border-bottom: 1px solid var(--border); background: #fcfcfd; }
+.data-table td { padding: 10px 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: 0; }
+.data-table tbody tr:hover { background: #fafbfc; }
+.data-table .num { text-align: right; white-space: nowrap; }
+.addr-cell { max-width: 230px; }
+.osm-tiles { filter: saturate(0.55) brightness(1.04); }
+section[id] { scroll-margin-top: 72px; }
+.addr-cell a { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.addr-cell a:hover b { color: var(--green); text-decoration: underline; }
+.thumb { width: 48px; height: 36px; border-radius: 6px; object-fit: cover; background: #e8eee9; flex: none; }
+.eq-num { display: inline-grid; place-items: center; min-width: 30px; height: 24px; padding: 0 6px; border-radius: 6px; color: #fff; font-weight: 700; font-size: 12px; }
+.eq-locked { display: inline-flex; align-items: center; gap: 4px; color: var(--green); font-weight: 600; font-size: 12.5px; }
+.result-cards { display: grid; gap: 12px; }
+.result-card { padding: 14px; display: grid; gap: 12px; }
+.result-top { display: flex; align-items: center; gap: 12px; }
+.result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 12px; font-size: 13.5px; }
+.result-grid > div { display: flex; flex-direction: column; gap: 2px; align-items: flex-start; }
+
+/* ───────────── Equity + plans ───────────── */
+.equity-explainer { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; padding: 32px; align-items: center; }
+.equity-explainer h2 { font-size: 30px; margin: 6px 0 10px; }
+.eq-scale { display: grid; gap: 12px; }
+.eq-bar { display: flex; height: 14px; border-radius: 999px; overflow: hidden; gap: 3px; }
+.eq-bands { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 13px; color: var(--muted); }
+.eq-bands span { display: flex; flex-direction: column; }
+.plans-title { font-size: 28px; margin: 40px 0 16px; }
+.plans { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.plan { position: relative; padding: 28px; display: flex; flex-direction: column; gap: 6px; border-radius: var(--r-card); }
+.plan-name { font-weight: 700; font-size: 14px; }
+.plan-price { font-family: var(--font-head); font-weight: 700; font-size: 40px; letter-spacing: -0.02em; }
+.plan-price span { font-family: var(--font-body); font-size: 14px; font-weight: 500; opacity: 0.75; letter-spacing: 0; }
+.plan ul { list-style: none; padding: 0; margin: 8px 0 20px; display: grid; gap: 8px; font-size: 14px; flex: 1; }
+.plan-pro { background: var(--ink); color: #fff; }
+.plan-badge { position: absolute; top: 14px; right: 14px; background: var(--green); color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 4px 10px; border-radius: 999px; }
+
+/* ───────────── About + alerts ───────────── */
+.about { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; }
+.about h2 { font-size: 34px; margin-top: 6px; }
+.about-body { display: grid; gap: 14px; color: var(--ink-2); font-size: 16px; }
+.about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+.about-stats > div { background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); padding: 14px 16px; display: flex; flex-direction: column; }
+.about-stats b { font-family: var(--font-head); font-size: 22px; color: var(--ink); }
+.alerts { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; padding: 32px; }
+.alerts .eyebrow { display: inline-flex; align-items: center; gap: 6px; }
+.alerts h2 { font-size: 26px; margin: 6px 0 8px; }
+.alerts-form { display: grid; grid-template-columns: 1fr 170px auto; gap: 10px; }
+.alerts-form .input, .alerts-form .btn { height: 48px; }
+.alerts-form p { grid-column: 1 / -1; }
+.alerts-done { display: flex; align-items: center; gap: 8px; color: var(--green); font-weight: 600; }
+
+/* ───────────── Responsive ───────────── */
+@media (max-width: 1100px) {
+  .fl-layout { grid-template-columns: 1fr 300px; }
+
+  .cmap-body { grid-template-columns: 1fr 340px; }
+}
+@media (max-width: 860px) {
+  .mob-only { display: revert !important; }
+  .desk-only { display: none !important; }
+  .fl-desk { display: none !important; }
+  .fl-mob { display: block !important; }
+
+  .hero { padding: 24px 0 20px; }
+  .hero h1 { font-size: 27px; }
+  .hero-sub { font-size: 14.5px; margin-top: 10px; }
+  .hero-tabs { margin: 16px -16px 0; padding: 0 16px; }
+  .hero-tabs .pill { height: 44px; }
+  .hero-search { flex-direction: column; }
+  .hero-search .btn { width: 100%; height: 48px; }
+  .hero-popular .scroll-x { margin-right: -16px; padding-right: 16px; }
+  .pop-chip { height: 36px; }
+
+  .fl-legend { padding: 10px 14px; gap: 14px; font-size: 12px; }
+  .fl-layout { grid-template-columns: 1fr; gap: 12px; }
+  .fl-list-head { display: none; }
+  .type-cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .type-cards > :last-child { grid-column: 1 / -1; }
+  .type-card { padding: 14px; }
+
+  .lp-controls { flex-direction: column; align-items: stretch; }
+  .lp-search { flex: none; }
+  .lp-controls .scroll-x { margin: 0 -16px; padding: 0 16px; }
+  .lp-controls .pill { height: 44px; }
+  .card-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .cmap-filters { margin: 0 -16px 12px; padding: 0 16px; }
+  .cmap-filters .pill { height: 44px; }
+  .cmap-body { grid-template-columns: 1fr; }
+  .cmap-canvas { height: 360px; }
+  .cmap-side { max-height: none; }
+  .cmap-list { max-height: 360px; }
+  .cmap-legend { font-size: 11.5px; gap: 10px; padding: 5px 10px; }
+
+  .result-cards { display: grid !important; }
+  .equity-explainer { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .equity-explainer h2 { font-size: 23px; }
+  .plans { grid-template-columns: 1fr; }
+  .plan { padding: 22px; }
+  .about { grid-template-columns: 1fr; gap: 16px; }
+  .about h2 { font-size: 25px; }
+  .about-body { font-size: 15px; }
+  .alerts { grid-template-columns: 1fr; padding: 20px; gap: 16px; }
+  .alerts h2 { font-size: 21px; }
+  .alerts-form { grid-template-columns: 1fr; }
+}
