@@ -7,8 +7,9 @@ import type { CountyStat } from "@/lib/data/queries";
 // Framed on the peninsula + Jacksonville, where the hot counties are, so each county has room
 const FLORIDA: [[number, number], [number, number]] = [[25.15, -83.4], [30.75, -79.3]];
 const GAP = 2;
-/** Bigger counts get bigger circles, like the clusters on the property map. */
-const sizeFor = (n: number) => (n >= 100 ? 37 : n >= 50 ? 34 : n >= 20 ? 31 : 28);
+/** Within each county the highest count gets the biggest circle, the next a little smaller, the lowest smallest. */
+const RANK_SIZES = [40, 32, 25];
+const RANK_FONT = [13.5, 12, 10.5];
 
 function esc(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
@@ -21,13 +22,19 @@ function markerHtml(s: CountyStat) {
     { n: s.lisPendens, cls: "hm-lp", href: `/lis-pendens/${s.slug}`, what: "new lis pendens filings" },
     { n: s.scheduledAuctions, cls: "hm-fc", href: `/auctions?county=${s.slug}&type=foreclosure`, what: "foreclosures scheduled for auction" },
     { n: s.taxDeeds, cls: "hm-td", href: `/auctions?county=${s.slug}&type=tax_deed`, what: "tax deed sales scheduled" },
-  ].map((it) => ({ ...it, size: sizeFor(it.n) }));
-  const w = items.reduce((t, it) => t + it.size, 0) + GAP * 2;
-  const h = Math.max(...items.map((it) => it.size));
+  ];
+  // Equal counts share a size
+  const ranked = [...new Set(items.map((it) => it.n))].sort((a, b) => b - a);
+  const sized = items.map((it) => {
+    const r = ranked.indexOf(it.n);
+    return { ...it, size: RANK_SIZES[r], font: RANK_FONT[r] };
+  });
+  const w = sized.reduce((t, it) => t + it.size, 0) + GAP * 2;
+  const h = Math.max(...sized.map((it) => it.size));
   let x = 0;
-  const circles = items
+  const circles = sized
     .map((it) => {
-      const html = `<a class="hm-btn ${it.cls}" href="${it.href}" style="width:${it.size}px;height:${it.size}px;left:${x}px;top:${(h - it.size) / 2}px" aria-label="${name} County: ${it.n} ${it.what}">${it.n}</a>`;
+      const html = `<a class="hm-btn ${it.cls}" href="${it.href}" style="width:${it.size}px;height:${it.size}px;left:${x}px;top:${(h - it.size) / 2}px;font-size:${it.font}px"aria-label="${name} County: ${it.n} ${it.what}">${it.n}</a>`;
       x += it.size + GAP;
       return html;
     })
