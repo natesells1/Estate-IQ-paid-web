@@ -358,23 +358,15 @@ section[id] { scroll-margin-top: 72px; }
 .fl-legend-box { z-index: 500; }
 .hm-marker { position: relative; overflow: visible; }
 .hm-dot { position: absolute; inset: 0; border-radius: 50%; background: var(--ink); border: 2.5px solid #fff; box-shadow: 0 1px 4px rgba(15, 27, 45, 0.35); }
-.hm-group { position: absolute; top: calc(50% - 42px + var(--dy, 0px)); display: flex; flex-direction: column; gap: 4px; white-space: nowrap; pointer-events: none; }
-.hm-group.hm-right { align-items: flex-start; }
-.hm-group.hm-left { align-items: flex-end; }
-.hm-btns { display: flex; gap: 4px; }
-.hm-group.hm-right { left: 18px; }
-.hm-group.hm-left { right: 18px; }
-.hm-btn { pointer-events: auto; display: grid; place-items: center; min-width: 32px; height: 32px; padding: 0 7px; border-radius: 999px; border: 2px solid #fff; color: #fff; font: 700 12.5px var(--font-body); box-shadow: 0 2px 6px rgba(15, 27, 45, 0.3); transition: transform 0.12s; }
-.hm-btn:hover, .hm-btn:focus-visible { transform: scale(1.12); }
+.hm-group { position: absolute; left: 22px; top: -8px; display: flex; gap: 6px; white-space: nowrap; pointer-events: none; }
+.hm-btn { pointer-events: auto; display: grid; place-items: center; min-width: 44px; height: 44px; padding: 0 8px; border-radius: 999px; border: 2.5px solid #fff; color: #fff; font: 700 15px var(--font-body); box-shadow: 0 3px 10px rgba(15, 27, 45, 0.3); transition: transform 0.12s; }
+.hm-btn:hover, .hm-btn:focus-visible { transform: scale(1.1); }
 .hm-lp { background: var(--lp-deep); }
 .hm-fc { background: var(--fc); }
 .hm-td { background: #b9580c; }
-.hm-name { background: #fff; color: var(--ink); font: 700 11px var(--font-body); letter-spacing: 0.06em; padding: 4px 8px; border-radius: 6px; box-shadow: 0 1px 4px rgba(15, 27, 45, 0.2); }
-.hm-mini { display: none; }
 @media (max-width: 860px) {
-  .hm-canvas { height: 360px; }
-  .hm-group { display: none; }
-  .hm-mini { display: inline-flex; align-items: center; position: absolute; top: calc(50% - 13px + var(--dy, 0px)); height: 26px; padding: 0 8px; background: #fff; color: var(--ink); font: 700 11px var(--font-body); letter-spacing: 0.04em; border-radius: 6px; white-space: nowrap; box-shadow: 0 1px 4px rgba(15, 27, 45, 0.25); pointer-events: auto; }
-  .hm-mini.hm-left { right: 16px; }
-  .hm-mini.hm-right { left: 16px; }
+  .hm-canvas { height: 460px; }
+  .hm-group { gap: 3px; }
+  .hm-btn { min-width: 44px; height: 44px; padding: 0 6px; font-size: 13px; border-width: 2px; }
 }
+
