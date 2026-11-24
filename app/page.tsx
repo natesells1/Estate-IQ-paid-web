@@ -74,7 +74,7 @@ export default async function HomePage() {
             <ul className="card fl-list mob-only">
               {stats.map((s) => (
                 <li key={s.slug}>
-                  <Link href={`/lis-pendens?county=${s.slug}`}>
+                  <Link href={`/lis-pendens/${s.slug}`}>
                     <b>{s.name}</b>
                     <span className="fl-list-counts">
                       <span className="count-pill count-lp">{s.lisPendens}</span>

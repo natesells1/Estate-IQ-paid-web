@@ -47,7 +47,7 @@ export function FloridaMap({ stats }: { stats: CountyStat[] }) {
           const lw = label.length * 9.5 + 18;
           const lx = at.label === "right" ? at.x + GAP * 2 + R + 10 : at.x - R - 10 - lw;
           return (
-            <Link key={s.slug} href={`/lis-pendens?county=${s.slug}`} className="fl-county" aria-label={`${label}: ${counts[0]} lis pendens, ${counts[1]} auction results, ${counts[2]} tax deeds`}>
+            <Link key={s.slug} href={`/lis-pendens/${s.slug}`} className="fl-county" aria-label={`${label}: ${counts[0]} lis pendens, ${counts[1]} auction results, ${counts[2]} tax deeds`}>
               {counts.map((n, i) => (
                 <g key={i}>
                   <circle cx={at.x + i * GAP} cy={at.y} r={R} fill={COLORS[i]} stroke="#fff" strokeWidth="3" />

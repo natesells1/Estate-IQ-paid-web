@@ -30,7 +30,7 @@ export function LisPendensSection({ counties, filings, initial }: Props) {
             <h2>Track the new Lis Pendens filings</h2>
             <p>Find, contact and negotiate a deal before the auction.</p>
           </div>
-          <Link href={`/lis-pendens?county=${county}`} className="text-link desk-only">All {current.name} County filings →</Link>
+          <Link href={`/lis-pendens/${county}`} className="text-link desk-only">All {current.name} County filings →</Link>
         </div>
 
         <label className="search-field lp-search">
@@ -60,11 +60,11 @@ export function LisPendensSection({ counties, filings, initial }: Props) {
 
         <div className="tile-grid">
           {cards.map((r) => (
-            <LpTile key={r.id} r={r} href={r.locked ? undefined : `/lis-pendens?county=${r.countySlug}&date=${r.date}&id=${r.id}`} />
+            <LpTile key={r.id} r={r} href={r.locked ? undefined : `/lis-pendens/${r.countySlug}?date=${r.date}&id=${r.id}`} />
           ))}
           {cards.length === 0 && <p className="muted">No new filings in {current.name} County this week.</p>}
         </div>
-        <Link href={`/lis-pendens?county=${county}`} className="text-link mob-only" style={{ marginTop: 16 }}>All {current.name} County filings →</Link>
+        <Link href={`/lis-pendens/${county}`} className="text-link mob-only" style={{ marginTop: 16 }}>All {current.name} County filings →</Link>
       </div>
     </section>
   );

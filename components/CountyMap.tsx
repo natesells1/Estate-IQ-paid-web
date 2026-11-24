@@ -19,7 +19,7 @@ const FILTERS: { value: Kind | "all"; label: string }[] = [
 
 function recordHref(r: ViewRecord) {
   if (r.locked) return `/signup?from=${r.id}`;
-  return r.kind === "lis_pendens" ? `/lis-pendens?county=${r.countySlug}&date=${r.date}&id=${r.id}` : `/auctions?county=${r.countySlug}&date=${r.date}&id=${r.id}`;
+  return r.kind === "lis_pendens" ? `/lis-pendens/${r.countySlug}?date=${r.date}&id=${r.id}` : `/auctions?county=${r.countySlug}&date=${r.date}&id=${r.id}`;
 }
 
 function longDate(iso: string) {
@@ -97,7 +97,8 @@ export function CountyMap({ records, countyName, center }: { records: ViewRecord
     if (!ready) return;
     (async () => {
       const L = (await import("leaflet")).default;
-      const g = cluster.current!;
+      const g = cluster.current;
+      if (!g || !map.current) return;
       g.clearLayers();
       g.addLayers(
         visible.map((r) => {

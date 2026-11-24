@@ -44,6 +44,15 @@ function toFull(p: Property, score: number, isPro: boolean): FullRecord {
   };
 }
 
+/**
+ * The score a viewer is allowed to sort by. Hidden scores count as 0 so the
+ * order of locked records never hints at their real Equity Score.
+ */
+function rankScore(p: Property, viewer: Viewer): number {
+  const s = equityScore(p);
+  return viewer.isPro || s >= FREE_SCORE_FLOOR ? s : 0;
+}
+
 export function toView(p: Property, viewer: Viewer): ViewRecord {
   const score = equityScore(p);
   if (viewer.isPro || isPublicRecord(p)) return toFull(p, score, viewer.isPro);
@@ -83,7 +92,7 @@ export function newFilingsByCounty(viewer: Viewer, perCounty = 4): Record<string
   for (const c of COUNTIES) {
     out[c.slug] = all
       .filter((p) => p.countySlug === c.slug)
-      .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : equityScore(b) - equityScore(a)))
+      .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : rankScore(b, viewer) - rankScore(a, viewer)))
       .slice(0, perCounty)
       .map((p) => toView(p, viewer));
   }
@@ -101,7 +110,7 @@ export function countyMapRecords(viewer: Viewer, countySlug: string): ViewRecord
         p.countySlug === countySlug &&
         ((p.kind === "lis_pendens" && p.date > from) || (p.status === "scheduled" && p.date <= to)),
     )
-    .sort((a, b) => equityScore(b) - equityScore(a))
+    .sort((a, b) => rankScore(b, viewer) - rankScore(a, viewer) || (a.date < b.date ? 1 : -1))
     .map((p) => toView(p, viewer));
 }
 
@@ -163,8 +172,50 @@ export function topFiling(viewer: Viewer, countySlug: string): ViewRecord | unde
   const from = addDays(floridaToday(), -7);
   const best = rows()
     .filter((p) => p.kind === "lis_pendens" && p.countySlug === countySlug && p.date > from)
-    .sort((a, b) => equityScore(b) - equityScore(a) || (a.date < b.date ? 1 : -1))[0];
+    .sort((a, b) => rankScore(b, viewer) - rankScore(a, viewer) || (a.date < b.date ? 1 : -1))[0];
   return best && toView(best, viewer);
+}
+
+export interface FilingDay {
+  date: string;
+  count: number;
+  /** Weekend: clerk closed */
+  closed: boolean;
+  isToday: boolean;
+}
+
+/** One county's lis pendens filings for the last `days` days (newest first) plus per-day counts. */
+export function countyFilings(viewer: Viewer, countySlug: string, days = 30): { records: ViewRecord[]; days: FilingDay[] } {
+  const today = floridaToday();
+  const from = addDays(today, -days);
+  const mine = rows()
+    .filter((p) => p.kind === "lis_pendens" && p.countySlug === countySlug && p.date > from)
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : b.caseNumber.localeCompare(a.caseNumber)));
+  const strip: FilingDay[] = [];
+  for (let d = days - 1; d >= 0; d--) {
+    const date = addDays(today, -d);
+    const dow = new Date(date + "T12:00:00Z").getUTCDay();
+    strip.push({ date, count: mine.filter((p) => p.date === date).length, closed: dow === 0 || dow === 6, isToday: d === 0 });
+  }
+  return { records: mine.map((p) => toView(p, viewer)), days: strip };
+}
+
+/**
+ * Search one county's filings. Free users match on case # only; Pro also matches
+ * address, owner (defendant), plaintiff and parcel. Returns matching ids.
+ */
+export function searchCountyFilings(viewer: Viewer, countySlug: string, q: string, days = 30): string[] {
+  const needle = q.trim().toLowerCase();
+  if (!needle) return [];
+  const from = addDays(floridaToday(), -days);
+  return rows()
+    .filter((p) => p.kind === "lis_pendens" && p.countySlug === countySlug && p.date > from)
+    .filter((p) => {
+      if (p.caseNumber.toLowerCase().includes(needle)) return true;
+      if (!viewer.isPro) return false;
+      return [p.address, p.owner, p.plaintiff, p.parcelId, p.city, p.zip].some((f) => f.toLowerCase().includes(needle));
+    })
+    .map((p) => p.id);
 }
 
 export function findById(id: string): Property | undefined {
